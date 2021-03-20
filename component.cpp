@@ -24,10 +24,10 @@
 
 Component::Component(string _name,
              float _mass,
-             Vec3 _com,
-             Vec3 _rel_pos,
-             Vec3 _moi,
-             Vec3 _rel_rot)
+             Vector3f _com,
+             Vector3f _rel_pos,
+             Vector3f _moi,
+             Vector3f _rel_rot)
 {
     name = _name;
     mass = _mass;
@@ -42,12 +42,12 @@ void Component::UpdateComponent()
     abs_moi = CalculateAbsMoi();
 }
 
-Vec3 Component::CalculateAbsMoi()
+Vector3f Component::CalculateAbsMoi()
 {
     // Parallel Axis Theorem
-    abs_moi.x = moi.x + (pow(rel_pos.y, 2.0) + pow(rel_pos.z, 2.0)) * mass;
-    abs_moi.y = moi.y + (pow(rel_pos.x, 2.0) + pow(rel_pos.z, 2.0)) * mass;
-    abs_moi.z = moi.z + (pow(rel_pos.x, 2.0) + pow(rel_pos.y, 2.0)) * mass;
+    abs_moi[0] = moi[0] + (pow(rel_pos[1], 2.0) + pow(rel_pos[2], 2.0)) * mass;
+    abs_moi[1] = moi[1] + (pow(rel_pos[0], 2.0) + pow(rel_pos[2], 2.0)) * mass;
+    abs_moi[2] = moi[2] + (pow(rel_pos[0], 2.0) + pow(rel_pos[1], 2.0)) * mass;
 
     return abs_moi;
 }

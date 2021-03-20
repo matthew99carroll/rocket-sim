@@ -23,7 +23,9 @@
 #include<string>
 #include "types.h"
 #include "component.h"
+#include <Eigen/Dense>
 
+using namespace Eigen;
 using namespace std;
 
 class Engine : public Component
@@ -34,14 +36,13 @@ private:
 
     // Thrust
     float avg_thrust;
-    Vec3 cot;
     vector<float> thrust_curve;
 
     // Burn time
     float burn_time;
 
     // Gimbal
-    Vec3 gimbal;
+    Vector3f gimbal;
     vector<float> gimbal_limits;
 
     void UpdateEngine(float t);
@@ -51,6 +52,10 @@ private:
     void GimbalEngine(vector<float> spherical_coords, float t);
 
 public:
+
+    Vector3f cot;
+    Vector3f rel_thrust_vec;
+    
     Engine(/* args */);
     ~Engine();
 };
@@ -76,7 +81,7 @@ private:
     float isp;
 
     void UpdateSolidMotor(float t, float step);
-    Vec3 CalculateMOI();
+    Vector3f CalculateMOI();
 public:
     SolidMotor();
     ~SolidMotor();

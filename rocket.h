@@ -23,7 +23,9 @@
 #include<string>
 #include "types.h"
 #include "engine.h"
+#include <Eigen/Dense>
 
+using namespace Eigen;
 using namespace std;
 
 class Rocket
@@ -33,69 +35,69 @@ private:
     vector<Engine> engines;
 
     // Center of masses
-    Vec3 dry_com;
-    Vec3 com;
+    Vector3f dry_com;
+    Vector3f com;
 
 
     // Center of pressure
-    Vec3 cop;
+    Vector3f cop;
 
     // Masses
     float mass;
     float dry_mass;
 
     // Moment of inertias
-    Vec3 dry_moi;
-    Vec3 moi;
+    Vector3f dry_moi;
+    Vector3f moi;
 
     // Linear Motion
-    Vec3 pos;
-    Vec3 vel;
-    Vec3 acc;
+    Vector3f pos;
+    Vector3f vel;
+    Vector3f acc;
 
     // Rotational Motion
-    Vec3 rot;
-    Vec3 ang_vel;
-    Vec3 ang_acc;
+    Vector3f rot;
+    Vector3f ang_vel;
+    Vector3f ang_acc;
 
     // Aerodynamics
     float cs_area;
     float cd;
 
     // Forces
-    Vec3 weight;
-    Vec3 total_thrust;
-    Vec3 drag;
-    Vec3 total_force;
+    Vector3f weight;
+    Vector3f total_thrust;
+    Vector3f drag;
+    Vector3f total_force;
 
     // Torques
-    Vec3 total_torque;
+    Vector3f total_torque;
 
     float CalculateMass();
 
-    Vec3 CalculateCOM();
-    Vec3 CalculatePosition(float dt);
-    Vec3 CalculateVelocity(float dt);
-    Vec3 CalculateAcceleration();
-    Vec3 CalculateMOI();
-    Vec3 CalculateAngularPosition(float dt);
-    Vec3 CalculateAngularVelocity(float dt);
-    Vec3 CalculateAngularAcceleration();
-    Vec3 CalculateWeight(float g);
-    Vec3 CalculateTotalThrust();
-    Vec3 CalculateTotalDrag(float rho);
-    Vec3 CalculateTotalForce();
-    Vec3 CalculateTotalTorque();
+    Vector3f CalculateCOM();
+    Vector3f CalculatePosition(float dt);
+    Vector3f CalculateVelocity(float dt);
+    Vector3f CalculateAcceleration();
+    Vector3f CalculateMOI();
+    Vector3f CalculateAngularPosition(float dt);
+    Vector3f CalculateAngularVelocity(float dt);
+    Vector3f CalculateAngularAcceleration();
+    Vector3f CalculateWeight(float g);
+    Vector3f CalculateTotalThrust();
+    Vector3f CalculateTotalDrag(float rho);
+    Vector3f CalculateTotalForce();
+    Vector3f CalculateTotalTorque();
 
 public:
     Rocket(vector<Engine> _engines,
-           Vec3 _com,
-           Vec3 _cop,
-           Vec3 _moi,
+           Vector3f _com,
+           Vector3f _cop,
+           Vector3f _moi,
            float _dry_mass,
            float _cs_area,
            float _cd,
-           Vec3 _pos,
-           Vec3 _rot);
+           Vector3f _pos,
+           Vector3f _rot);
     ~Rocket();
 };

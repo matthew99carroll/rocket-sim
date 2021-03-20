@@ -22,7 +22,9 @@
 #include<vector>
 #include<string>
 #include "types.h"
+#include <Eigen/Dense>
 
+using namespace Eigen;
 using namespace std;
 
 class Component
@@ -30,31 +32,31 @@ class Component
 private:
 
     // Rotation
-    Vec3 moi;
-    Vec3 rel_rot;
+    Vector3f moi;
+    Vector3f rel_rot;
 
     // Name of component
     string name;
 
-    Vec3 CalculateAbsMoi();
+    Vector3f CalculateAbsMoi();
     
 public:
     // Mass data
     float mass;
-    Vec3 com;
+    Vector3f com;
 
     // Position
-    Vec3 rel_pos;
+    Vector3f rel_pos;
 
     // MOI
-    Vec3 abs_moi;
+    Vector3f abs_moi;
 
     Component(string _name,
              float _mass,
-             Vec3 _com,
-             Vec3 _rel_pos,
-             Vec3 _moi,
-             Vec3 _rel_rot);
+             Vector3f _com,
+             Vector3f _rel_pos,
+             Vector3f _moi,
+             Vector3f _rel_rot);
 
     void UpdateComponent();     
         

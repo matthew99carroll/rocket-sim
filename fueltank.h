@@ -21,9 +21,12 @@
 
 #include<vector>
 #include<string>
-
+#include<math.h>
 #include"types.h"
 #include"component.h"
+#include <Eigen/Dense>
+
+using namespace Eigen;
 using namespace std;
 
 class FuelTank : Component
@@ -34,14 +37,14 @@ private:
 
     // Masses
     float mass;
-    Vec3 com;
-    Vec3 moi;
+    Vector3f com;
+    Vector3f moi;
     float dry_mass;
     float prop_mass;
     float prop_density;
-    Vec3 prop_com;
-    Vec3 prop_moi;
-    Vec3 dry_com;
+    Vector3f prop_com;
+    Vector3f prop_moi;
+    Vector3f dry_com;
 
     // Dimensions
     float diameter;
@@ -49,16 +52,16 @@ private:
     float length;
 
     // Position
-    Vec3 rel_pos;
+    Vector3f rel_pos;
 
     // Rotation
-    Vec3 rel_rot;
+    Vector3f rel_rot;
 
-    Vec3 CalculateCOM();
-    Vec3 CalculateMOI();
+    Vector3f CalculateCOM();
+    Vector3f CalculateMOI();
 
-    Vec3 CalculateFluidMOI();
-    Vec3 CalculateFluidCOM();
+    Vector3f CalculateFluidMOI();
+    Vector3f CalculateFluidCOM();
 
     void UpdateTank(float mass_flow_rate, float dt);
 
@@ -69,8 +72,8 @@ public:
              float _prop_density,
              float _diameter,
              float _length,
-             Vec3 _dry_com,
-             Vec3 _rel_pos,
-             Vec3 _rel_rot);
+             Vector3f _dry_com,
+             Vector3f _rel_pos,
+             Vector3f _rel_rot);
     ~FuelTank();
 };

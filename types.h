@@ -27,78 +27,78 @@ const float air_gamma = 1.4;
 const float air_rho_0 = 1.2252;
 const float earth_radius = 6356766;
 
-struct Vec3 {
-    float x;
-    float y;
-    float z;
-};
+// struct Vector3f {
+//     float x;
+//     float y;
+//     float z;
+// };
 
-Vec3 Vec3Addition(Vec3 a, Vec3 b)
-{
-    Vec3 c;
-    c.x = a.x + b.x;
-    c.y = a.y + b.y;
-    c.z = a.z + b.z;
+// Vector3f Vector3fAddition(Vector3f a, Vector3f b)
+// {
+//     Vector3f c;
+//     c.x = a.x + b.x;
+//     c.y = a.y + b.y;
+//     c.z = a.z + b.z;
 
-    return c;
-}
+//     return c;
+// }
 
-Vec3 Vec3Subtraction(Vec3 a, Vec3 b)
-{
-    Vec3 c;
-    c.x = a.x - b.x;
-    c.y = a.y - b.y;
-    c.z = a.z - b.z;
+// Vector3f Vector3fSubtraction(Vector3f a, Vector3f b)
+// {
+//     Vector3f c;
+//     c.x = a.x - b.x;
+//     c.y = a.y - b.y;
+//     c.z = a.z - b.z;
 
-    return c;
-}
+//     return c;
+// }
 
-Vec3 Vec3Multiply(Vec3 a, Vec3 b)
-{
-    Vec3 c;
-    c.x = a.x * b.x;
-    c.y = a.y * b.y;
-    c.z = a.z * b.z;
+// Vector3f Vector3fMultiply(Vector3f a, Vector3f b)
+// {
+//     Vector3f c;
+//     c.x = a.x * b.x;
+//     c.y = a.y * b.y;
+//     c.z = a.z * b.z;
 
-    return c;
-}
+//     return c;
+// }
 
-Vec3 Vec3Multiply(float a, Vec3 b)
-{
-    Vec3 c;
-    c.x = a * b.x;
-    c.y = a * b.y;
-    c.z = a * b.z;
+// Vector3f Vector3fMultiply(float a, Vector3f b)
+// {
+//     Vector3f c;
+//     c.x = a * b.x;
+//     c.y = a * b.y;
+//     c.z = a * b.z;
 
-    return c;
-}
+//     return c;
+// }
 
-Vec3 Vec3Divide(Vec3 a, Vec3 b)
-{
-    Vec3 c;
-    c.x = a.x / b.x;
-    c.y = a.y / b.y;
-    c.z = a.z / b.z;
+// Vector3f Vector3fDivide(Vector3f a, Vector3f b)
+// {
+//     Vector3f c;
+//     c.x = a.x / b.x;
+//     c.y = a.y / b.y;
+//     c.z = a.z / b.z;
 
-    return c;
-}
+//     return c;
+// }
 
-Vec3 Vec3Divide(float a, Vec3 b)
-{
-    Vec3 c;
-    c.x = a / b.x;
-    c.y = a / b.y;
-    c.z = a / b.z;
+// Vector3f Vector3fDivide(float a, Vector3f b)
+// {
+//     Vector3f c;
+//     c.x = a / b.x;
+//     c.y = a / b.y;
+//     c.z = a / b.z;
 
-    return c;
-}
+//     return c;
+// }
 
-Vec3 Vec3Divide(Vec3 a, float b)
-{
-    Vec3 c;
-    c.x = a.x / b;
-    c.y = a.y / b;
-    c.z = a.z / b;
+// Vector3f Vector3fDivide(Vector3f a, float b)
+// {
+//     Vector3f c;
+//     c.x = a.x / b;
+//     c.y = a.y / b;
+//     c.z = a.z / b;
 
-    return c;
-}
+//     return c;
+// }

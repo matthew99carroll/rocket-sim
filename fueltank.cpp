@@ -19,9 +19,7 @@
  * matthew99carroll@gmail.com
  */
 
-#include<math.h>
 #include"fueltank.h"
-#include"types.h"
 
 FuelTank::FuelTank(string _name,
              float _dry_mass,
@@ -29,9 +27,9 @@ FuelTank::FuelTank(string _name,
              float _prop_density,
              float _diameter,
              float _length,
-             Vec3 _dry_com,
-             Vec3 _rel_pos,
-             Vec3 _rel_rot)
+             Vector3f _dry_com,
+             Vector3f _rel_pos,
+             Vector3f _rel_rot)
 {
     mass = {};
     com = {};
@@ -66,52 +64,52 @@ void FuelTank::UpdateTank(float mass_flow_rate, float dt)
     UpdateComponent();
 }
 
-Vec3 FuelTank::CalculateFluidMOI()
+Vector3f FuelTank::CalculateFluidMOI()
 {
-    Vec3 fluid_moi;
+    Vector3f fluid_moi;
 
     float volume = prop_mass / prop_density;
     float height = volume / (pi * pow(radius, 2));
     
-    fluid_moi.x = (1/12) * prop_mass * (3 * pow(radius, 2) + pow(height, 2));
-    fluid_moi.y = (1/12) * prop_mass * (3 * pow(radius, 2) + pow(height, 2));
-    fluid_moi.z = (1/2) * prop_mass * pow(radius, 2);
+    fluid_moi[0] = (1/12) * prop_mass * (3 * pow(radius, 2) + pow(height, 2));
+    fluid_moi[1] = (1/12) * prop_mass * (3 * pow(radius, 2) + pow(height, 2));
+    fluid_moi[2] = (1/2) * prop_mass * pow(radius, 2);
 
     return fluid_moi;
 }
 
-Vec3 FuelTank::CalculateFluidCOM()
+Vector3f FuelTank::CalculateFluidCOM()
 {
-    Vec3 fluid_com;
+    Vector3f fluid_com;
 
     float volume = prop_mass / prop_density;
     float height = volume / (pi * pow(radius, 2));
 
-    fluid_com.x = 0;
-    fluid_com.y = 0;
-    fluid_com.z = height / 2;
+    fluid_com[0] = 0;
+    fluid_com[1] = 0;
+    fluid_com[2] = height / 2;
 
     return fluid_com;
 }
 
-Vec3 FuelTank::CalculateMOI()
+Vector3f FuelTank::CalculateMOI()
 {
-    com = Vec3Divide(Vec3Addition(Vec3Multiply(dry_mass, dry_com), Vec3Multiply(prop_mass, prop_com)), mass);
+    com = dry_mass * dry_com + prop_mass * prop_com / mass;
 }
 
-Vec3 FuelTank::CalculateCOM()
+Vector3f FuelTank::CalculateCOM()
 {
-    Vec3 dry_moi;
-    dry_moi.x = (1/12) * mass * (6 * pow(radius, 2) + pow(length, 2));
-    dry_moi.y = (1/12) * mass * (6 * pow(radius, 2) + pow(length, 2));
-    dry_moi.z = mass * pow(radius, 2);
+    Vector3f dry_moi;
+    dry_moi[0] = (1/12) * mass * (6 * pow(radius, 2) + pow(length, 2));
+    dry_moi[1] = (1/12) * mass * (6 * pow(radius, 2) + pow(length, 2));
+    dry_moi[2] = mass * pow(radius, 2);
 
-    Vec3 prop_abs_moi;
-    prop_abs_moi.x = prop_moi.x + mass * pow((com.z - prop_com.z),2);
-    prop_abs_moi.y = prop_moi.y + mass * pow((com.z - prop_com.z),2);
-    prop_abs_moi.z = prop_moi.z;
+    Vector3f prop_abs_moi;
+    prop_abs_moi[0] = prop_moi[0] + mass * pow((com[2] - prop_com[2]),2);
+    prop_abs_moi[1] = prop_moi[1] + mass * pow((com[2] - prop_com[2]),2);
+    prop_abs_moi[2] = prop_moi[2];
 
-    return Vec3Addition(dry_moi, prop_abs_moi);
+    return dry_moi + prop_abs_moi;
 }
 
 FuelTank::~FuelTank()
