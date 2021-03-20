@@ -35,29 +35,49 @@ private:
     float isp;
 
     // Thrust
-    float avg_thrust;
-    vector<float> thrust_curve;
-
-    // Burn time
-    float burn_time;
+    vector<float, float> thrust_curve;
+    float thrust_scalar;
 
     // Gimbal
     Vector3f gimbal;
     vector<float> gimbal_limits;
 
-    void UpdateEngine(float t);
+    float avg_mass_flow_rate;
+    
     float CalculateThrustScalar(float t);
-    vector<float> CalculateThrustVector();
+    Vector3f CalculateThrustVector();
     float CalculateMassFlowRate();
-    void GimbalEngine(vector<float> spherical_coords, float t);
+    void GimbalEngine(Vector3f spherical_coords, float t);
 
 public:
+    // Burn time
+    float burn_time;
+
+    // Thrust
+    float avg_thrust;
 
     Vector3f cot;
     Vector3f rel_thrust_vec;
-    
-    Engine(/* args */);
+
+    float mass_flow_rate;
+
+    Engine(string _name,
+           float _mass,
+           Vector3f _com,
+           Vector3f _rel_pos,
+           Vector3f _moi,
+           Vector3f _rel_rot,
+           float _isp,
+           float _avg_thrust,
+           float _burn_time,
+           vector<float, float> _thrust_curve,
+           Vector3f _cot,
+           Vector3f _gimbal,
+           vector<float> _gimbal_limits);
+    Engine();
     ~Engine();
+
+    void UpdateEngine(float t);
 };
 
 class SolidMotor : Engine
@@ -75,15 +95,22 @@ private:
     float initial_prop_mass;
     float prop_volume;
     float prop_density;
-    float moi;
+
 
     // Specific impulse
     float isp;
 
     void UpdateSolidMotor(float t, float step);
     Vector3f CalculateMOI();
+
 public:
-    SolidMotor();
+
+    Vector3f moi;
+
+    SolidMotor(float _delay,
+               float _diameter,
+               float _length,
+               float _prop_mass);
     ~SolidMotor();
 };
 

@@ -3,6 +3,7 @@
         "string": "cpp",
         "array": "cpp",
         "string_view": "cpp",
-        "dense": "cpp"
+        "dense": "cpp",
+        "cmath": "cpp"
     }
 }

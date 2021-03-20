@@ -19,6 +19,9 @@
  * matthew99carroll@gmail.com
  */
 
+#include <Eigen/Dense>
+using namespace Eigen;
+
 const float pi = 3.14159265359;
 const float g_0 = 9.80665;
 const float air_molar_mass = 0.02896968;
@@ -27,78 +30,12 @@ const float air_gamma = 1.4;
 const float air_rho_0 = 1.2252;
 const float earth_radius = 6356766;
 
-// struct Vector3f {
-//     float x;
-//     float y;
-//     float z;
-// };
+float Interpolate(float x0, float x1, float y0, float y1, float xp)
+{
+    return y0 + ((y1-y0)/(x1-x0)) * (xp - x0);
+}
 
-// Vector3f Vector3fAddition(Vector3f a, Vector3f b)
-// {
-//     Vector3f c;
-//     c.x = a.x + b.x;
-//     c.y = a.y + b.y;
-//     c.z = a.z + b.z;
-
-//     return c;
-// }
-
-// Vector3f Vector3fSubtraction(Vector3f a, Vector3f b)
-// {
-//     Vector3f c;
-//     c.x = a.x - b.x;
-//     c.y = a.y - b.y;
-//     c.z = a.z - b.z;
-
-//     return c;
-// }
-
-// Vector3f Vector3fMultiply(Vector3f a, Vector3f b)
-// {
-//     Vector3f c;
-//     c.x = a.x * b.x;
-//     c.y = a.y * b.y;
-//     c.z = a.z * b.z;
-
-//     return c;
-// }
-
-// Vector3f Vector3fMultiply(float a, Vector3f b)
-// {
-//     Vector3f c;
-//     c.x = a * b.x;
-//     c.y = a * b.y;
-//     c.z = a * b.z;
-
-//     return c;
-// }
-
-// Vector3f Vector3fDivide(Vector3f a, Vector3f b)
-// {
-//     Vector3f c;
-//     c.x = a.x / b.x;
-//     c.y = a.y / b.y;
-//     c.z = a.z / b.z;
-
-//     return c;
-// }
-
-// Vector3f Vector3fDivide(float a, Vector3f b)
-// {
-//     Vector3f c;
-//     c.x = a / b.x;
-//     c.y = a / b.y;
-//     c.z = a / b.z;
-
-//     return c;
-// }
-
-// Vector3f Vector3fDivide(Vector3f a, float b)
-// {
-//     Vector3f c;
-//     c.x = a.x / b;
-//     c.y = a.y / b;
-//     c.z = a.z / b;
-
-//     return c;
-// }
+float Clamp(float x, float upper, float lower)
+{
+    return min(upper, max(x, lower));
+}

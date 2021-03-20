@@ -33,7 +33,6 @@ private:
 
     // Rotation
     Vector3f moi;
-    Vector3f rel_rot;
 
     // Name of component
     string name;
@@ -48,6 +47,9 @@ public:
     // Position
     Vector3f rel_pos;
 
+    // Rotation
+    Vector3f rel_rot;
+
     // MOI
     Vector3f abs_moi;
 
@@ -57,7 +59,8 @@ public:
              Vector3f _rel_pos,
              Vector3f _moi,
              Vector3f _rel_rot);
-
+    Component();
+    
     void UpdateComponent();     
         
     ~Component();
