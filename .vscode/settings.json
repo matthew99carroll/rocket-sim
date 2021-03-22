@@ -4,6 +4,7 @@
         "array": "cpp",
         "string_view": "cpp",
         "dense": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "random": "cpp"
     }
 }
