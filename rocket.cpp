@@ -32,31 +32,40 @@ Rocket::Rocket(vector<Engine> _engines,
                Vector3f _pos,
                Vector3f _rot)
 {
+
+    // Engines
     engines = _engines;
-    dry_com = _com;
+
+    // Center of pressure and mass
     cop = _cop;
+    dry_com = _com;
     com = CalculateCOM();
 
+    // Linear motion
     dry_mass = _dry_mass;
     mass = CalculateMass();
     pos = _pos;
     vel = { };
     acc = { };
 
+    // Rotations
     dry_moi = _moi;
     moi = CalculateMOI();
     rot = _rot;
     ang_vel = { };
     ang_acc = { };
 
+    // Aerodynamics
     cs_area = _cs_area;
     cd = _cd;
 
+    // Forces
     weight = CalculateWeight(g_0);
     total_thrust = CalculateTotalThrust();
     drag = CalculateTotalDrag(air_rho_0);
     total_force = CalculateTotalForce();
 
+    // Torques
     total_torque = CalculateTotalTorque();
 }
 
