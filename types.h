@@ -19,7 +19,10 @@
  * matthew99carroll@gmail.com
  */
 
+#include<string>
 #include<vector>
+#include "engine.h"
+
 #include <Eigen/Dense>
 
 using namespace Eigen;
@@ -44,6 +47,58 @@ vector<float> tb = {288.15f, 216.85f, 216.85f, 228.65f, 270.65f, 270.65f, 214.65
 
 // Layer lapse rates
 vector<float> lm = {-0.0065f, 0.0f, 0.001f, 0.0028f, 0.0f, -0.0028f, -0.002f};
+
+struct EngineParameters
+{
+    std::string type;
+    float isp;
+    float thrust;
+};
+
+struct FuelParameters
+{
+    float ofMixtureRatio; // Oxidizer/Fuel Mixture Ratio
+    float fuelReserve; 
+};
+
+struct MassParameters
+{
+    float dryMass;
+};
+
+struct AerodynamicsParameters
+{
+    float cd;
+    float cs_area;
+};
+
+struct EnvironmentParameters
+{
+    float elevation;
+    float dt;
+    float g_0;
+    float air_molar_mass;
+    float gas_constant;
+    float air_gamma;
+    float atmo_pressure;
+};
+
+struct SimulationParameters
+{
+    std::string logFilename;
+    std::string csvFilename;
+};
+
+struct Params
+{
+    EngineParameters engine;
+    FuelParameters fuel;
+    MassParameters mass;
+    AerodynamicsParameters aero;
+    EnvironmentParameters env;
+    SimulationParameters sim;
+};
+
 
 // Stores environment variables
 struct EnvironmentVars

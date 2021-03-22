@@ -5,6 +5,7 @@
         "string_view": "cpp",
         "dense": "cpp",
         "cmath": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "vector": "cpp"
     }
 }
