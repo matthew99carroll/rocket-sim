@@ -19,8 +19,6 @@
  * matthew99carroll@gmail.com
  */
 
-#include<vector>
-
 #include "types.h"
 
 class Parameters
@@ -34,8 +32,10 @@ public:
                FuelParameters _fuel,
                MassParameters _mass,
                AerodynamicsParameters _aero,
-               EnvironmentalParameters _env,
+               EnvironmentParameters _env,
                SimulationParameters _sim);
+
+    Parameters();
 
     ~Parameters();
 };

@@ -19,10 +19,7 @@
  * matthew99carroll@gmail.com
  */
 
-#include<vector>
-#include<string>
-#include "types.h"
-#include <Eigen/Dense>
+#include "Eigen/Dense"
 
 using namespace Eigen;
 using namespace std;

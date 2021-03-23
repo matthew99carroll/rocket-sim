@@ -19,34 +19,41 @@
  * matthew99carroll@gmail.com
  */
 
+#ifndef TYPES_H_ 
+#define TYPES_H_ 
+
 #include<string>
 #include<vector>
-#include "engine.h"
-
-#include <Eigen/Dense>
+#include "Eigen/Dense"
 
 using namespace Eigen;
 
 // Constant parameters
-const float pi = 3.14159265359;
-const float g_0 = 9.80665;
-const float air_molar_mass = 0.02896968;
-const float gas_constant = 8.314462618;
-const float air_gamma = 1.4;
-const float air_rho_0 = 1.2252;
-const float earth_radius = 6356766;
+const float pi = 3.14159265359f;
+const float g_0 = 9.80665f;
+const float air_molar_mass = 0.02896968f;
+const float gas_constant = 8.314462618f;
+const float air_gamma = 1.4f;
+const float air_rho_0 = 1.2252f;
+const float earth_radius = 6356766.0f;
 
 // Layer base altitudes
-vector<float> hb = {0.0f, 11000.0f, 20000.0f, 32000.0f, 47000.0f, 51000.0f, 71000.0f};
+std::vector<float> hb = {0.0f, 11000.0f, 20000.0f, 32000.0f, 47000.0f, 51000.0f, 71000.0f};
 
 // Layer base pressures
-vector<float> pb = {101325.0f, 22632.1f, 5474.89f, 868.019f, 110.906f, 66.9389f, 3.95642f};
+std::vector<float> pb = {101325.0f, 22632.1f, 5474.89f, 868.019f, 110.906f, 66.9389f, 3.95642f};
 
 // Layer base temperatures
-vector<float> tb = {288.15f, 216.85f, 216.85f, 228.65f, 270.65f, 270.65f, 214.65f};
+std::vector<float> tb = {288.15f, 216.85f, 216.85f, 228.65f, 270.65f, 270.65f, 214.65f};
 
 // Layer lapse rates
-vector<float> lm = {-0.0065f, 0.0f, 0.001f, 0.0028f, 0.0f, -0.0028f, -0.002f};
+std::vector<float> lm = {-0.0065f, 0.0f, 0.001f, 0.0028f, 0.0f, -0.0028f, -0.002f};
+
+struct TempFunction
+{
+    float temp;
+    float b;
+};
 
 struct EngineParameters
 {
@@ -104,7 +111,7 @@ struct Params
 struct EnvironmentVars
 {
     float g;
-    vector<float, float> temp;
+    TempFunction tempFunc;
     float pressure;
     float density;
     float c;
@@ -118,10 +125,13 @@ float Interpolate(float x0, float x1, float y0, float y1, float xp)
     return y0 + ((y1-y0)/(x1-x0)) * (xp - x0);
 }
 
+
 /*
 * Clamping function
 */
 float Clamp(float x, float upper, float lower)
 {
-    return min(upper, max(x, lower));
+    return fmin(upper, fmax(x, lower));
 }
+
+#endif

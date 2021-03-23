@@ -30,7 +30,7 @@ Engine::Engine(string _name,
            float _isp,
            float _avg_thrust,
            float _burn_time,
-           vector<float, float> _thrust_curve,
+           vector<vector<float>, vector<float>> _thrust_curve,
            Vector3f _cot,
            Vector3f _gimbal,
            vector<float> _gimbal_limits)

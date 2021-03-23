@@ -19,11 +19,9 @@
  * matthew99carroll@gmail.com
  */
 
-#include<vector>
-#include<string>
 #include "types.h"
 #include "engine.h"
-#include <Eigen/Dense>
+#include "Eigen/Dense"
 
 using namespace Eigen;
 using namespace std;
@@ -99,5 +97,8 @@ public:
            float _cd,
            Vector3f _pos,
            Vector3f _rot);
+
+    Rocket();
+    
     ~Rocket();
 };

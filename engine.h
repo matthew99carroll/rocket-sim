@@ -19,11 +19,9 @@
  * matthew99carroll@gmail.com
  */
 
-#include<vector>
-#include<string>
 #include "types.h"
 #include "component.h"
-#include <Eigen/Dense>
+#include "Eigen/Dense"
 
 using namespace Eigen;
 using namespace std;
@@ -35,7 +33,7 @@ private:
     float isp;
 
     // Thrust
-    vector<float, float> thrust_curve;
+    vector<vector<float>, vector<float>> thrust_curve;
     float thrust_scalar;
 
     // Gimbal
@@ -70,7 +68,7 @@ public:
            float _isp,
            float _avg_thrust,
            float _burn_time,
-           vector<float, float> _thrust_curve,
+           vector<vector<float>, vector<float>> _thrust_curve,
            Vector3f _cot,
            Vector3f _gimbal,
            vector<float> _gimbal_limits);

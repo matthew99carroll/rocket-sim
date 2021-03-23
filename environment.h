@@ -19,9 +19,8 @@
  * matthew99carroll@gmail.com
  */
 
-#include<vector>
-#include<types.h>
 #include<math.h>
+#include "types.h"
 
 using std::vector;
 
@@ -46,39 +45,57 @@ float CalculateGravity(float alt)
     return g_0 * pow((earth_radius / (earth_radius + alt)), 2);
 }
 
-vector<float, float> CalculateTemperature(float alt, float geo_alt)
+TempFunction CalculateTemperature(float alt, float geo_alt)
 {
+    TempFunction tempFunc;
+    
     if(0 <= geo_alt <= 11000)
     {
-        return {288.15f + (lm[0] * (geo_alt - 0.0f)), 0};
+        tempFunc.temp = 288.15f + (lm[0] * (geo_alt - 0.0f));
+        tempFunc.b = 0;
+        return tempFunc;
     }
     else if(11000.0f < geo_alt <= 20000.0f)
     {
-        return {216.65f + (lm[1] * (geo_alt - 11000.0f)), 1};
+        tempFunc.temp = 216.65f + (lm[1] * (geo_alt - 11000.0f));
+        tempFunc.b = 1;
+        return tempFunc;
     }
     else if(20000.0f < geo_alt <= 32000.0f)
     {
-        return {216.65f + (lm[2] * (geo_alt - 20000.0f)), 2};
+        tempFunc.temp = 216.65f + (lm[2] * (geo_alt - 20000.0f));
+        tempFunc.b = 2;
+        return tempFunc;
     }
     else if(32000.0f < geo_alt <= 47000.0f)
     {
-        return {228.65f + (lm[3] * (geo_alt - 32000.0f)), 3};
+        tempFunc.temp = 228.65f + (lm[3] * (geo_alt - 32000.0f));
+        tempFunc.b = 3;
+        return tempFunc;
     }
     else if(47000.0f < geo_alt <= 51000.0f)
     {
-        return {270.65f + (lm[4] * (geo_alt - 47000.0f)), 4};
+        tempFunc.temp = 270.65f + (lm[4] * (geo_alt - 47000.0f));
+        tempFunc.b = 4;
+        return tempFunc;
     }
     else if(51000.0f < geo_alt <= 71000.0f)
     {
-        return {270.65f + (lm[5] * (geo_alt - 51000.0f)), 5};
+        tempFunc.temp = 270.65f + (lm[5] * (geo_alt - 51000.0f));
+        tempFunc.b = 5;
+        return tempFunc;
     }
     else if(71000.0f < geo_alt <= 84852.0f)
     {
-        return {214.65f + (lm[6] * (geo_alt - 71000.0f)), 6};
+        tempFunc.temp = 214.65f + (lm[6] * (geo_alt - 71000.0f));
+        tempFunc.b = 6;
+        return tempFunc;
     }
     else if(86000.0f < geo_alt <= 91000.0f)
     {
-        return {186.87f, 7};
+        tempFunc.temp = 186.87f;
+        tempFunc.b = 7;
+        return tempFunc;
     }
     else if (91000.0f < geo_alt <= 110000.0f)
     {
@@ -93,11 +110,15 @@ vector<float, float> CalculateTemperature(float alt, float geo_alt)
             layer = 9;
         }
 
-        return {263.1905f - 76.3232f * sqrt(1.0f - pow(((geo_alt - 91000.0f) / -19942.9f), 2)), layer}; 
+        tempFunc.temp = 263.1905f - 76.3232f * sqrt(1.0f - pow(((geo_alt - 91000.0f) / -19942.9f), 2));
+        tempFunc.b = layer;
+        return tempFunc;
     }
     else if(110000.0f < geo_alt <= 120000.0f)
     {
-        return {240.0f + 0.012f * (geo_alt - 110000), 10};
+        tempFunc.temp = 240.0f + 0.012f * (geo_alt - 110000);
+        tempFunc.b = 10;
+        return tempFunc;
     }
     else if(120000.0f < geo_alt <= 1000000.0f)
     {
@@ -128,7 +149,11 @@ vector<float, float> CalculateTemperature(float alt, float geo_alt)
         }
 
         float xi = (geo_alt - 120000.0f) * (6356766.0f + 120000.0f) / (6356766.0f + geo_alt);
-        return {1000.0f - 640.0f * exp(-0.00001875f * xi), layer};
+
+        tempFunc.temp = 1000.0f - 640.0f * exp(-0.00001875f * xi);
+        tempFunc.b = layer;
+
+        return tempFunc;
     }
 }
 
@@ -185,6 +210,10 @@ float CalculatePressure(float alt, float geo_alt, float temp, int b)
     {
         return HeterosphereEquation(alt, 2.813255e-11f, -1.120689e-7f, 1.695568e-4f, -0.1188941f, 14.56718f);
     }
+    else
+    {
+        return 0;
+    }
 }
 
 float CalculateDensity(float alt, float pressure, float temp, int b)
@@ -234,6 +263,10 @@ float CalculateDensity(float alt, float pressure, float temp, int b)
     {
         return HeterosphereEquation(alt, -3.701195e-12f, -8.608611e-09f, 5.118829e-05f, -0.06600998f, -6.137674f);
     }
+    else
+    {
+        return 0;
+    }
 }
 
 float CalculateMach(float temp)
@@ -247,10 +280,10 @@ EnvironmentVars CalculateEnvironmentVariables(float alt)
 
     float geo_alt = round(CalculateGeopotentialAltitude(alt));
     vars.g = CalculateGravity(alt);
-    vars.temp = CalculateTemperature(alt, geo_alt);
-    vars.pressure = CalculatePressure(alt, geo_alt, vars.temp[0], vars.temp[1]);
-    vars.density = CalculateDensity(alt, vars.pressure, vars.temp[0], vars.temp[1]);
-    vars.c = CalculateMach(vars.temp[0]);
+    vars.tempFunc = CalculateTemperature(alt, geo_alt);
+    vars.pressure = CalculatePressure(alt, geo_alt, vars.tempFunc.temp, (int)vars.tempFunc.b);
+    vars.density = CalculateDensity(alt, vars.pressure, vars.tempFunc.temp, (int)vars.tempFunc.b);
+    vars.c = CalculateMach(vars.tempFunc.temp);
 
     return vars;
 }

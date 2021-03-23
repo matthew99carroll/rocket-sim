@@ -25,7 +25,7 @@ Parameters::Parameters(EngineParameters _engine,
                FuelParameters _fuel,
                MassParameters _mass,
                AerodynamicsParameters _aero,
-               EnvironmentalParameters _env,
+               EnvironmentParameters _env,
                SimulationParameters _sim)
 {
     params.engine = _engine;
