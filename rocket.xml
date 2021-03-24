@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Rocket>
+    <Engine>
+        <parameter name="type" value="solid"/>
+        <parameter name="isp" value="318" units="s"/>
+        <parameter name="thrust" value="500" units="N"/>
+    </Engine>
+
+    <Fuel>
+        <parameter name="ofratio" value="15"/>
+        <parameter name="fuel_reserve" value="5" units="%"/>
+    </Fuel>
+    
+    <Mass>
+        <parameter name="dry_mass" value="10" units="kg"/>
+    </Mass>
+
+    <Aerodynamics>
+        <parameter name="cd" value="0.0556"/>
+        <parameter name="cs_area" value="0.0255364" units="m2"/>
+    </Aerodynamics>
+
+    <Environment>
+        <parameter name="elevation" value="113" units="m"/>
+        <parameter name="sim_step" value="0.01" units="s"/>
+        <parameter name="standard_gravity" value="9.80665" units="m/s2"/>
+        <parameter name="air_molar_mass" value="0.02896968" units="kg/mol"/>
+        <parameter name="gas_constant" value="8.314462618" units="J/Kmol"/>
+        <parameter name="air_gamma" value="1.4"/>
+        <parameter name="atmo_pressure" value="101325" units="pa"/>
+    </Environment>
+
+    <Output>
+        <parameter name="log_file" value="Flight.log"/>
+        <parameter name="csv_file" value="Flight.csv"/>
+    </Output>
+</Rocket>
