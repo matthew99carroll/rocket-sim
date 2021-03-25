@@ -30,8 +30,8 @@
         <parameter name="atmo_pressure" value="101325" units="pa"/>
     </Environment>
 
-    <Output>
+    <Simulation>
         <parameter name="log_file" value="Flight.log"/>
         <parameter name="csv_file" value="Flight.csv"/>
-    </Output>
+    </Simulation>
 </Rocket>

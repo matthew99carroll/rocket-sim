@@ -19,8 +19,7 @@
  * matthew99carroll@gmail.com
  */
 
-#ifndef TYPES_H_ 
-#define TYPES_H_ 
+#pragma once
 
 #include<string>
 #include<vector>
@@ -38,16 +37,16 @@ const float air_rho_0 = 1.2252f;
 const float earth_radius = 6356766.0f;
 
 // Layer base altitudes
-std::vector<float> hb = {0.0f, 11000.0f, 20000.0f, 32000.0f, 47000.0f, 51000.0f, 71000.0f};
+inline std::vector<float> hb = {0.0f, 11000.0f, 20000.0f, 32000.0f, 47000.0f, 51000.0f, 71000.0f};
 
 // Layer base pressures
-std::vector<float> pb = {101325.0f, 22632.1f, 5474.89f, 868.019f, 110.906f, 66.9389f, 3.95642f};
+inline std::vector<float> pb = {101325.0f, 22632.1f, 5474.89f, 868.019f, 110.906f, 66.9389f, 3.95642f};
 
 // Layer base temperatures
-std::vector<float> tb = {288.15f, 216.85f, 216.85f, 228.65f, 270.65f, 270.65f, 214.65f};
+inline std::vector<float> tb = {288.15f, 216.85f, 216.85f, 228.65f, 270.65f, 270.65f, 214.65f};
 
 // Layer lapse rates
-std::vector<float> lm = {-0.0065f, 0.0f, 0.001f, 0.0028f, 0.0f, -0.0028f, -0.002f};
+inline std::vector<float> lm = {-0.0065f, 0.0f, 0.001f, 0.0028f, 0.0f, -0.0028f, -0.002f};
 
 struct TempFunction
 {
@@ -120,7 +119,7 @@ struct EnvironmentVars
 /*
 * Linear interpolation function
 */
-float Interpolate(float x0, float x1, float y0, float y1, float xp)
+inline float Interpolate(float x0, float x1, float y0, float y1, float xp)
 {
     return y0 + ((y1-y0)/(x1-x0)) * (xp - x0);
 }
@@ -129,9 +128,7 @@ float Interpolate(float x0, float x1, float y0, float y1, float xp)
 /*
 * Clamping function
 */
-float Clamp(float x, float upper, float lower)
+inline float Clamp(float x, float upper, float lower)
 {
     return fmin(upper, fmax(x, lower));
 }
-
-#endif

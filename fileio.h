@@ -26,17 +26,14 @@
 class FileIO
 {
 private:
-    const char* file_path;
-
-    Params ParseFile();
 
 public:
-
-    Params config_params;
-
-    FileIO(const char* _file_path);
+    const char* file_path;
 
     FileIO();
+    FileIO(const char* _file_path);
+
+    Params ParseFile();
 
     ~FileIO();
 };

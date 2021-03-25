@@ -6,8 +6,14 @@ FileIO::FileIO(const char* _file_path)
     file_path = _file_path;
 }
 
+FileIO::FileIO()
+{
+}
+
 Params FileIO::ParseFile()
 {
+    Params p;
+
     pugi::xml_document doc;
    
     // load the XML file
@@ -18,22 +24,114 @@ Params FileIO::ParseFile()
 
     for (pugi::xml_node_iterator it = rocket.begin(); it != rocket.end(); ++it)
     {
-        std::cout << "Rocket:";
+        pugi::xml_node child_node = doc.child(it->name());
 
-        for (pugi::xml_attribute_iterator ait = it->attributes_begin(); ait != it->attributes_end(); ++ait)
+        std::string node_name = (std::string)it->name();
+    
+        if(node_name == (std::string)"Engine")
         {
-            // if(ait->name() == "type")
-            //     config_params.engine.type = ait->value();
-            // else if(ait->name() == "isp")
-            //     config_params.engine.isp = std::stof(ait->value());
-            // else if(ait->name() == "thrust")
-            //     config_params.engine.thrust = std::stof(ait->value());
+            for (pugi::xml_node_iterator cit = it->begin(); cit != it->end(); ++cit)
+            {
+                pugi::xml_attribute cit_val = cit->attribute("value");
+                pugi::xml_attribute cit_name = cit->attribute("name");
 
-            std::cout << " " << ait->name() << "=" << ait->value();
+                std::string child_node_name = (std::string)cit_name.value();
+                
+                if(child_node_name == (std::string)"type")
+                    p.engine.type = cit_val.value();
+                else if(child_node_name == (std::string)"isp")
+                    p.engine.isp = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"thrust")
+                    p.engine.thrust = std::stof((std::string)cit_val.value());
+            }
         }
+        else if(node_name == (std::string)"Fuel")
+        {
+            for (pugi::xml_node_iterator cit = it->begin(); cit != it->end(); ++cit)
+            {
+                pugi::xml_attribute cit_val = cit->attribute("value");
+                pugi::xml_attribute cit_name = cit->attribute("name");
 
-        std::cout << std::endl;
+                std::string child_node_name = (std::string)cit_name.value();
+
+                if(child_node_name == (std::string)"ofratio")
+                    p.fuel.ofMixtureRatio = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"fuel_reserve")
+                    p.fuel.fuelReserve = std::stof((std::string)cit_val.value());
+            }
+        }
+        else if(node_name == (std::string)"Mass")
+        {
+            for (pugi::xml_node_iterator cit = it->begin(); cit != it->end(); ++cit)
+            {
+                pugi::xml_attribute cit_val = cit->attribute("value");
+                pugi::xml_attribute cit_name = cit->attribute("name");
+
+                std::string child_node_name = (std::string)cit_name.value();
+
+                if(child_node_name == (std::string)"dry_mass")
+                    p.mass.dryMass = std::stof((std::string)cit_val.value());
+            }
+        }
+        else if(node_name == (std::string)"Aerodynamics")
+        {
+            for (pugi::xml_node_iterator cit = it->begin(); cit != it->end(); ++cit)
+            {
+                pugi::xml_attribute cit_val = cit->attribute("value");
+                pugi::xml_attribute cit_name = cit->attribute("name");
+
+                std::string child_node_name = (std::string)cit_name.value();
+
+                if(child_node_name == (std::string)"cd")
+                    p.aero.cd = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"cs_area")
+                    p.aero.cs_area = std::stof((std::string)cit_val.value());
+            }
+        }
+        else if(node_name == (std::string)"Environment")
+        {
+            for (pugi::xml_node_iterator cit = it->begin(); cit != it->end(); ++cit)
+            {
+                pugi::xml_attribute cit_val = cit->attribute("value");
+                pugi::xml_attribute cit_name = cit->attribute("name");
+
+                std::string child_node_name = (std::string)cit_name.value();
+                
+                if(child_node_name == (std::string)"elevation")
+                    p.env.elevation = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"sim_step")
+                    p.env.dt = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"standard_gravity")
+                    p.env.g_0 = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"air_molar_mass")
+                    p.env.air_molar_mass = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"gas_constant")
+                    p.env.gas_constant = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"air_gamma")
+                    p.env.air_gamma = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"atmo_pressure")
+                    p.env.atmo_pressure = std::stof((std::string)cit_val.value());
+            }
+        }
+        else if(node_name == (std::string)"Simulation")
+        {
+            for (pugi::xml_node_iterator cit = it->begin(); cit != it->end(); ++cit)
+            {
+                pugi::xml_attribute cit_val = cit->attribute("value");
+                pugi::xml_attribute cit_name = cit->attribute("name");
+
+                std::string child_node_name = (std::string)cit_name.value();
+
+                if(child_node_name == (std::string)"log_file")
+                    p.sim.logFilename = (std::string)cit_val.value();
+                else if(child_node_name == (std::string)"csv_file")
+                    p.sim.csvFilename = (std::string)cit_val.value();
+            }
+        }
     }
+    return p;
+}
 
-    return config_params;
+FileIO::~FileIO()
+{
 }
