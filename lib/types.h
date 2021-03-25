@@ -23,7 +23,7 @@
 
 #include<string>
 #include<vector>
-#include "Eigen/Dense"
+#include "../include/Eigen/Dense"
 
 using namespace Eigen;
 

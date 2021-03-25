@@ -8,9 +8,9 @@
 			"args": [
 				"-std=c++17",
 				"-g",
-				"PugiXML/pugixml.cpp",
-				"fileio.cpp",
-				"main.cpp",
+				"include/PugiXML/pugixml.cpp",
+				"lib/fileio.cpp",
+				"src/main.cpp",
 				//"${file}",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"

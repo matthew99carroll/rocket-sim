@@ -21,7 +21,7 @@
 
 #include "types.h"
 
-#include "PugiXML/pugixml.hpp"
+#include "../include/PugiXML/pugixml.hpp"
 
 class FileIO
 {

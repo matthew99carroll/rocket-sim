@@ -2,7 +2,7 @@
 // #include "parameters.h"
 // #include "environment.h"
 // #include "system.h"
-#include "fileio.h"
+#include "../lib/fileio.h"
 
 FileIO parser;
 
@@ -10,7 +10,7 @@ Params parameters;
 
 int main()
 {
-    parser.file_path = "rocket.xml"; 
+    parser.file_path = "../include/rocket.xml"; 
 
     parameters = parser.ParseFile();
 
