@@ -35,6 +35,7 @@ const float gas_constant = 8.314462618f;
 const float air_gamma = 1.4f;
 const float air_rho_0 = 1.2252f;
 const float earth_radius = 6356766.0f;
+const float atmo_pressure_0 = 101325.0f;
 
 // Layer base altitudes
 inline std::vector<float> hb = {0.0f, 11000.0f, 20000.0f, 32000.0f, 47000.0f, 51000.0f, 71000.0f};
@@ -95,16 +96,6 @@ struct SimulationParameters
     std::string csvFilename;
 };
 
-struct Params
-{
-    EngineParameters engine;
-    FuelParameters fuel;
-    MassParameters mass;
-    AerodynamicsParameters aero;
-    EnvironmentParameters env;
-    SimulationParameters sim;
-};
-
 
 // Stores environment variables
 struct EnvironmentVars
@@ -116,6 +107,16 @@ struct EnvironmentVars
     float c;
 };
 
+struct Params
+{
+    EngineParameters engine;
+    FuelParameters fuel;
+    MassParameters mass;
+    AerodynamicsParameters aero;
+    EnvironmentParameters env;
+    SimulationParameters sim;
+};
+
 /*
 * Linear interpolation function
 */
@@ -123,7 +124,6 @@ inline float Interpolate(float x0, float x1, float y0, float y1, float xp)
 {
     return y0 + ((y1-y0)/(x1-x0)) * (xp - x0);
 }
-
 
 /*
 * Clamping function

@@ -20,8 +20,9 @@
  */
 
 #include "types.h"
+#include "environment.h"
 #include "rocket.h"
-#include "Eigen/Dense"
+#include "../include/Eigen/Dense"
 
 using namespace Eigen;
 using namespace std;
@@ -29,9 +30,12 @@ using namespace std;
 class System
 {
 private:
+    Params p;
+    EnvironmentVars vars;
 
     float isp;
     float avg_thrust;
+    float thrust;
     float burn_time;
     vector<float> thrust_curve_x;
     vector<float> thrust_curve_y;
@@ -39,6 +43,7 @@ private:
     float fuel_reserve;
 
     float avg_mass_flow_rate;
+    float mass_flow_rate;
 
     float propellant_mass;
     
@@ -56,6 +61,11 @@ private:
     float asl;
     float mass;
 
+    float drag;
+    float vel;
+    float mach;
+    float acc;
+
     void CalculateMass();
     void CalculatePropellant();
     void CalculateAltitude();
@@ -66,7 +76,7 @@ private:
     void CalculateTWR();
 
 public:
-    System();
+    System(Params _params, float _burn_time);
 
     void RunSimulation();
 

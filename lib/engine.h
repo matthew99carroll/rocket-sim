@@ -21,7 +21,7 @@
 
 #include "types.h"
 #include "component.h"
-#include "Eigen/Dense"
+#include "../include/Eigen/Dense"
 
 using namespace Eigen;
 using namespace std;

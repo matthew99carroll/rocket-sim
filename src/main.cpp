@@ -21,13 +21,15 @@
 
 #include<iostream>
 // #include "parameters.h"
-// #include "environment.h"
-// #include "system.h"
+//#include "../lib/component.h"
+#include "../lib/system.h"
 #include "../lib/fileio.h"
 
-FileIO parser;
+float burn_time;
 
+FileIO parser;
 Params parameters;
+System s;
 
 int main()
 {
@@ -35,8 +37,11 @@ int main()
 
     parameters = parser.ParseFile();
 
-    std::cout << parameters.aero.cd << std::endl;
-    std::cout << parameters.aero.cs_area << std::endl;
+    burn_time = 10.0f;
+
+    s = System(parameters, burn_time);
+
+    s.RunSimulation();
 
     std::cin.get();
 

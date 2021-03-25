@@ -19,7 +19,7 @@
  * matthew99carroll@gmail.com
  */
 
-#include "Eigen/Dense"
+#include "../include/Eigen/Dense"
 
 using namespace Eigen;
 using namespace std;
