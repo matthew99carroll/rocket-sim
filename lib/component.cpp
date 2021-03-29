@@ -19,15 +19,14 @@
  * matthew99carroll@gmail.com
  */
 
-#include<math.h>
 #include "component.h"
 
-Component::Component(string _name,
+Component::Component(std::string _name,
              float _mass,
-             Vector3f _com,
-             Vector3f _rel_pos,
-             Vector3f _moi,
-             Vector3f _rel_rot)
+            Eigen::Vector3f _com,
+            Eigen::Vector3f _rel_pos,
+            Eigen::Vector3f _moi,
+            Eigen::Vector3f _rel_rot)
 {
     name = _name;
     mass = _mass;
@@ -37,17 +36,14 @@ Component::Component(string _name,
     rel_rot = _rel_rot;
 }
 
-Component::Component()
-{
-
-}
+Component::Component() { }
 
 void Component::UpdateComponent()
 {
     abs_moi = CalculateAbsMoi();
 }
 
-Vector3f Component::CalculateAbsMoi()
+Eigen::Vector3f Component::CalculateAbsMoi()
 {
     // Parallel Axis Theorem
     abs_moi[0] = moi[0] + (pow(rel_pos[1], 2.0) + pow(rel_pos[2], 2.0)) * mass;
@@ -57,7 +53,4 @@ Vector3f Component::CalculateAbsMoi()
     return abs_moi;
 }
 
-Component::~Component()
-{
-    
-}
+Component::~Component() { }

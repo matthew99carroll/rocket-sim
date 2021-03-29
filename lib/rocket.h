@@ -23,80 +23,77 @@
 #include "engine.h"
 #include "../include/Eigen/Dense"
 
-using namespace Eigen;
-using namespace std;
-
 class Rocket
 {
 private:
     // Number of engines
-    vector<Engine> engines;
+    std::vector<Engine> engines;
 
     // Center of masses
-    Vector3f dry_com;
-    Vector3f com;
+    Eigen::Vector3f dry_com;
+    Eigen::Vector3f com;
 
 
     // Center of pressure
-    Vector3f cop;
+    Eigen::Vector3f cop;
 
     // Masses
     float mass;
     float dry_mass;
 
     // Moment of inertias
-    Vector3f dry_moi;
-    Vector3f moi;
+    Eigen::Vector3f dry_moi;
+    Eigen::Vector3f moi;
 
     // Linear Motion
-    Vector3f pos;
-    Vector3f vel;
-    Vector3f acc;
+    Eigen::Vector3f pos;
+    Eigen::Vector3f vel;
+    Eigen::Vector3f acc;
 
     // Rotational Motion
-    Vector3f rot;
-    Vector3f ang_vel;
-    Vector3f ang_acc;
+    Eigen::Vector3f rot;
+    Eigen::Vector3f ang_vel;
+    Eigen::Vector3f ang_acc;
 
     // Aerodynamics
     float cs_area;
     float cd;
 
     // Forces
-    Vector3f weight;
-    Vector3f total_thrust;
-    Vector3f drag;
-    Vector3f total_force;
+    Eigen::Vector3f weight;
+    Eigen::Vector3f total_thrust;
+    Eigen::Vector3f drag;
+    Eigen::Vector3f total_force;
 
     // Torques
-    Vector3f total_torque;
+    Eigen::Vector3f total_torque;
 
     float CalculateMass();
 
-    Vector3f CalculateCOM();
-    Vector3f CalculatePosition(float dt);
-    Vector3f CalculateVelocity(float dt);
-    Vector3f CalculateAcceleration();
-    Vector3f CalculateMOI();
-    Vector3f CalculateAngularPosition(float dt);
-    Vector3f CalculateAngularVelocity(float dt);
-    Vector3f CalculateAngularAcceleration();
-    Vector3f CalculateWeight(float g);
-    Vector3f CalculateTotalThrust();
-    Vector3f CalculateTotalDrag(float rho);
-    Vector3f CalculateTotalForce();
-    Vector3f CalculateTotalTorque();
+    Eigen::Vector3f CalculateCOM();
+    Eigen::Vector3f CalculatePosition(float dt);
+    Eigen::Vector3f CalculateVelocity(float dt);
+    Eigen::Vector3f CalculateAcceleration();
+    Eigen::Vector3f CalculateMOI();
+    Eigen::Vector3f CalculateAngularPosition(float dt);
+    Eigen::Vector3f CalculateAngularVelocity(float dt);
+    Eigen::Vector3f CalculateAngularAcceleration();
+    Eigen::Vector3f CalculateWeight(float g);
+    Eigen::Vector3f CalculateTotalThrust();
+    Eigen::Vector3f CalculateTotalDrag(float rho);
+    Eigen::Vector3f CalculateTotalForce();
+    Eigen::Vector3f CalculateTotalTorque();
 
 public:
-    Rocket(vector<Engine> _engines,
-           Vector3f _com,
-           Vector3f _cop,
-           Vector3f _moi,
+    Rocket(std::vector<Engine> _engines,
+           Eigen::Vector3f _com,
+           Eigen::Vector3f _cop,
+           Eigen::Vector3f _moi,
            float _dry_mass,
            float _cs_area,
            float _cd,
-           Vector3f _pos,
-           Vector3f _rot);
+           Eigen::Vector3f _pos,
+           Eigen::Vector3f _rot);
 
     Rocket();
     

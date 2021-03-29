@@ -26,25 +26,22 @@
 #include "component.h"
 #include "../include/Eigen/Dense"
 
-using namespace Eigen;
-using namespace std;
-
 class FuelTank : Component
 {
 private:
     // Fuel tank name
-    string name;
+    std::string name;
 
     // Masses
     float mass;
-    Vector3f com;
-    Vector3f moi;
+    Eigen::Vector3f com;
+    Eigen::Vector3f moi;
     float dry_mass;
     float prop_mass;
     float prop_density;
-    Vector3f prop_com;
-    Vector3f prop_moi;
-    Vector3f dry_com;
+    Eigen::Vector3f prop_com;
+    Eigen::Vector3f prop_moi;
+    Eigen::Vector3f dry_com;
 
     // Dimensions
     float diameter;
@@ -52,28 +49,28 @@ private:
     float length;
 
     // Position
-    Vector3f rel_pos;
+    Eigen::Vector3f rel_pos;
 
     // Rotation
-    Vector3f rel_rot;
+    Eigen::Vector3f rel_rot;
 
-    Vector3f CalculateCOM();
-    Vector3f CalculateMOI();
+    Eigen::Vector3f CalculateCOM();
+    Eigen::Vector3f CalculateMOI();
 
-    Vector3f CalculateFluidMOI();
-    Vector3f CalculateFluidCOM();
+    Eigen::Vector3f CalculateFluidMOI();
+    Eigen::Vector3f CalculateFluidCOM();
 
     void UpdateTank(float mass_flow_rate, float dt);
 
 public:
-    FuelTank(string _name,
+    FuelTank(std::string _name,
              float _dry_mass,
              float _prop_mass,
              float _prop_density,
              float _diameter,
              float _length,
-             Vector3f _dry_com,
-             Vector3f _rel_pos,
-             Vector3f _rel_rot);
+             Eigen::Vector3f _dry_com,
+             Eigen::Vector3f _rel_pos,
+             Eigen::Vector3f _rel_rot);
     ~FuelTank();
 };

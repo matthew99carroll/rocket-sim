@@ -25,7 +25,7 @@ void SolidMotor::UpdateSolidMotor(float t, float step)
     UpdateComponent();
 }
 
-Vector3f SolidMotor::CalculateMOI()
+Eigen::Vector3f SolidMotor::CalculateMOI()
 {
     float mass_delta = initial_prop_mass - prop_mass;
     float bore_radius = sqrt(mass_delta / (prop_density * length * pi));

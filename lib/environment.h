@@ -25,8 +25,6 @@
 #include<math.h>
 #include "types.h"
 
-using std::vector;
-
 inline float HeterosphereEquation(float alt, float a, float b, float c, float d, float e)
 {
     float alt_km = alt / 1000.0f;

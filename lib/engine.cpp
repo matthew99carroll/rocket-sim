@@ -21,19 +21,19 @@
 
 #include "engine.h"
 
- Engine::Engine(string _name,
+Engine::Engine(std::string _name,
                 float _mass,
-                Vector3f _com,
-                Vector3f _rel_pos,
-                Vector3f _moi,
-                Vector3f _rel_rot,
+                Eigen::Vector3f _com,
+                Eigen::Vector3f _rel_pos,
+                Eigen::Vector3f _moi,
+                Eigen::Vector3f _rel_rot,
                 float _isp,
                 float _avg_thrust,
                 float _burn_time,
                 ThrustCurve _thrust_curve,
-                Vector3f _cot,
-                Vector3f _gimbal,
-                vector<float> _gimbal_limits) 
+                Eigen::Vector3f _cot,
+                Eigen::Vector3f _gimbal,
+                std::vector<float> _gimbal_limits) 
 {
     Component(_name, _mass, _com, _rel_pos, _moi, _rel_rot);
 
@@ -71,8 +71,8 @@ float Engine::CalculateThrustScalar(float t)
 
     if (t >= 0 && t <= burn_time)
     {
-        vector<float> t_vec = thrust_curve.thrust_curve_x;
-        vector<float> y_vec = thrust_curve.thrust_curve_y;
+        std::vector<float> t_vec = thrust_curve.thrust_curve_x;
+        std::vector<float> y_vec = thrust_curve.thrust_curve_y;
 
         for(int i = 1; i <= t_vec.size(); i++)
         {
@@ -90,11 +90,11 @@ float Engine::CalculateThrustScalar(float t)
     return thrust;
 }
 
-Vector3f Engine::CalculateThrustVector()
+Eigen::Vector3f Engine::CalculateThrustVector()
 {
-    Vector3f total_rot = gimbal + rel_rot;
+    Eigen::Vector3f total_rot = gimbal + rel_rot;
 
-    Vector3f vec(thrust_scalar * sinf(total_rot[1]) * cos(total_rot[2]),
+    Eigen::Vector3f vec(thrust_scalar * sinf(total_rot[1]) * cos(total_rot[2]),
                  thrust_scalar * sin(total_rot[1]) * sin(total_rot[2]),
                  thrust_scalar * cos(total_rot[1]));
 
@@ -106,7 +106,7 @@ float Engine::CalculateMassFlowRate()
     return (thrust_scalar / g_0) / isp;
 }
 
-void Engine::GimbalEngine(Vector3f spherical_coords, float t)
+void Engine::GimbalEngine(Eigen::Vector3f spherical_coords, float t)
 {
     gimbal[0] = Clamp(spherical_coords[0], gimbal_limits[0], gimbal_limits[1]);
     gimbal[1] = Clamp(spherical_coords[1], gimbal_limits[0], gimbal_limits[1]);

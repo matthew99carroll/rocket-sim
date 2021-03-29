@@ -22,15 +22,15 @@
 #include "rocket.h"
 #include <math.h>
 
-Rocket::Rocket(vector<Engine> _engines,
-               Vector3f _com,
-               Vector3f _cop,
-               Vector3f _moi,
+Rocket::Rocket(std::vector<Engine> _engines,
+               Eigen::Vector3f _com,
+               Eigen::Vector3f _cop,
+               Eigen::Vector3f _moi,
                float _dry_mass,
                float _cs_area,
                float _cd,
-               Vector3f _pos,
-               Vector3f _rot)
+               Eigen::Vector3f _pos,
+               Eigen::Vector3f _rot)
 {
 
     // Engines
@@ -69,10 +69,10 @@ Rocket::Rocket(vector<Engine> _engines,
     total_torque = CalculateTotalTorque();
 }
 
-Vector3f Rocket::CalculateCOM()
+Eigen::Vector3f Rocket::CalculateCOM()
 {
     float engine_masses = 0;
-    Vector3f engine_weighted_position = {};
+    Eigen::Vector3f engine_weighted_position = {};
 
     for(int i=0; i < engines.size(); i++)
     {
@@ -97,28 +97,28 @@ float Rocket::CalculateMass()
     return total_mass;
 }
 
-Vector3f Rocket::CalculatePosition(float dt)
+Eigen::Vector3f Rocket::CalculatePosition(float dt)
 {
-    Vector3f new_pos = pos + dt * vel + pow(dt,2) * acc / 2;
+    Eigen::Vector3f new_pos = pos + dt * vel + pow(dt,2) * acc / 2;
 
     return new_pos;
 }
 
-Vector3f Rocket::CalculateVelocity(float dt)
+Eigen::Vector3f Rocket::CalculateVelocity(float dt)
 {
-    Vector3f new_vel = vel + dt * acc;
+    Eigen::Vector3f new_vel = vel + dt * acc;
 
     return new_vel;
 }
 
-Vector3f Rocket::CalculateAcceleration()
+Eigen::Vector3f Rocket::CalculateAcceleration()
 {
-    Vector3f new_acc = total_force / mass;
+    Eigen::Vector3f new_acc = total_force / mass;
 
     return new_acc;
 }
 
-Vector3f Rocket::CalculateMOI()
+Eigen::Vector3f Rocket::CalculateMOI()
 {
     moi = dry_moi;
     for(int i = 0; i < engines.size(); i++)
@@ -129,23 +129,23 @@ Vector3f Rocket::CalculateMOI()
     return moi;
 }
 
-Vector3f Rocket::CalculateAngularPosition(float dt)
+Eigen::Vector3f Rocket::CalculateAngularPosition(float dt)
 {
-    Vector3f new_rot = rot + dt * ang_vel + pow(dt,2) * ang_acc / 2;
+    Eigen::Vector3f new_rot = rot + dt * ang_vel + pow(dt,2) * ang_acc / 2;
 
     return new_rot;
 }
 
-Vector3f Rocket::CalculateAngularVelocity(float dt)
+Eigen::Vector3f Rocket::CalculateAngularVelocity(float dt)
 {
-    Vector3f new_ang_vel = ang_vel + dt * ang_acc;
+    Eigen::Vector3f new_ang_vel = ang_vel + dt * ang_acc;
 
     return new_ang_vel;
 }
 
-Vector3f Rocket::CalculateAngularAcceleration()
+Eigen::Vector3f Rocket::CalculateAngularAcceleration()
 {
-    Vector3f new_ang_acc;
+    Eigen::Vector3f new_ang_acc;
 
     new_ang_acc[0] = total_force[0] / moi[0];
     new_ang_acc[1] = total_force[1] / moi[1];
@@ -154,16 +154,16 @@ Vector3f Rocket::CalculateAngularAcceleration()
     return new_ang_acc;
 }
 
-Vector3f Rocket::CalculateWeight(float g)
+Eigen::Vector3f Rocket::CalculateWeight(float g)
 {
-    Vector3f weight(0,0, mass * -g);
+    Eigen::Vector3f weight(0,0, mass * -g);
 
     return weight;
 }
 
-Vector3f Rocket::CalculateTotalThrust()
+Eigen::Vector3f Rocket::CalculateTotalThrust()
 {
-    Vector3f total_rel_vec = {};
+    Eigen::Vector3f total_rel_vec = {};
 
     for(int i = 0; i < engines.size(); i++)
     {
@@ -175,7 +175,7 @@ Vector3f Rocket::CalculateTotalThrust()
     float beta = rot[1];
     float alpha = rot[2];
 
-    MatrixXf matrix(3,3);
+    Eigen::MatrixXf matrix(3,3);
 
     matrix(0,0) = cos(alpha) * cos(beta);
     matrix(0,1) = cos(alpha) * sin(beta) * sin(gamma) - sin(alpha) * cos(gamma);
@@ -190,30 +190,30 @@ Vector3f Rocket::CalculateTotalThrust()
     matrix(2,2) = cos(beta) * cos(gamma);
     
     // Apply rocket rotation to thrust vector
-    Vector3f total_thrust = matrix * total_rel_vec;
+    Eigen::Vector3f total_thrust = matrix * total_rel_vec;
 
     return total_thrust;
 }
 
-Vector3f Rocket::CalculateTotalDrag(float rho)
+Eigen::Vector3f Rocket::CalculateTotalDrag(float rho)
 {
-    Vector3f drag = 0.5 * rho * vel.array().square() * cd * cs_area;
+    Eigen::Vector3f drag = 0.5 * rho * vel.array().square() * cd * cs_area;
 
     return drag;
 }
 
-Vector3f Rocket::CalculateTotalForce()
+Eigen::Vector3f Rocket::CalculateTotalForce()
 {
-    Vector3f total_ext = weight + total_thrust + drag;
+    Eigen::Vector3f total_ext = weight + total_thrust + drag;
 
     return total_ext;
 }
 
-Vector3f Rocket::CalculateTotalTorque()
+Eigen::Vector3f Rocket::CalculateTotalTorque()
 {
     total_torque.Zero();
 
-    Vector3f position_vec;
+    Eigen::Vector3f position_vec;
 
     for(int i = 0; i < engines.size(); i++)
     {

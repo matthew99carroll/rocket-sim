@@ -25,8 +25,6 @@
 #include<vector>
 #include "../include/Eigen/Dense"
 
-using namespace Eigen;
-
 // Constant parameters
 const float pi = 3.14159265359f;
 const float g_0 = 9.80665f;

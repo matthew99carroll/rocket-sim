@@ -22,10 +22,8 @@
 #include<iostream>
 #include<fstream>
 #include<string>
-
 #include "types.h"
 #include "system.h"
-
 #include "../include/PugiXML/pugixml.hpp"
 
 class FileIO

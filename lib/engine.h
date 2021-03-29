@@ -23,9 +23,6 @@
 #include "component.h"
 #include "../include/Eigen/Dense"
 
-using namespace Eigen;
-using namespace std;
-
 class Engine : public Component
 {
 private:
@@ -37,15 +34,15 @@ private:
     float thrust_scalar;
 
     // Gimbal
-    Vector3f gimbal;
-    vector<float> gimbal_limits;
+    Eigen::Vector3f gimbal;
+    std::vector<float> gimbal_limits;
 
     float avg_mass_flow_rate;
     
     float CalculateThrustScalar(float t);
-    Vector3f CalculateThrustVector();
+    Eigen::Vector3f CalculateThrustVector();
     float CalculateMassFlowRate();
-    void GimbalEngine(Vector3f spherical_coords, float t);
+    void GimbalEngine(Eigen::Vector3f spherical_coords, float t);
 
 public:
     // Burn time
@@ -54,24 +51,24 @@ public:
     // Thrust
     float avg_thrust;
 
-    Vector3f cot;
-    Vector3f rel_thrust_vec;
+    Eigen::Vector3f cot;
+    Eigen::Vector3f rel_thrust_vec;
 
     float mass_flow_rate;
 
-    Engine(string _name,
+    Engine(std::string _name,
            float _mass,
-           Vector3f _com,
-           Vector3f _rel_pos,
-           Vector3f _moi,
-           Vector3f _rel_rot,
+           Eigen::Vector3f _com,
+           Eigen::Vector3f _rel_pos,
+           Eigen::Vector3f _moi,
+           Eigen::Vector3f _rel_rot,
            float _isp,
            float _avg_thrust,
            float _burn_time,
            ThrustCurve _thrust_curve,
-           Vector3f _cot,
-           Vector3f _gimbal,
-           vector<float> _gimbal_limits);
+           Eigen::Vector3f _cot,
+           Eigen::Vector3f _gimbal,
+           std::vector<float> _gimbal_limits);
     Engine();
     ~Engine();
 
@@ -99,11 +96,11 @@ private:
     float isp;
 
     void UpdateSolidMotor(float t, float step);
-    Vector3f CalculateMOI();
+    Eigen::Vector3f CalculateMOI();
 
 public:
 
-    Vector3f moi;
+    Eigen::Vector3f moi;
 
     SolidMotor(float _delay,
                float _diameter,

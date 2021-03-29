@@ -19,45 +19,43 @@
  * matthew99carroll@gmail.com
  */
 
+#include<math.h>
 #include "../include/Eigen/Dense"
-
-using namespace Eigen;
-using namespace std;
 
 class Component
 {
 private:
 
     // Rotation
-    Vector3f moi;
+    Eigen::Vector3f moi;
 
     // Name of component
-    string name;
+    std::string name;
 
-    Vector3f CalculateAbsMoi();
+    Eigen::Vector3f CalculateAbsMoi();
     
 public:
     // Mass data
     float mass;
-    Vector3f com;
+    Eigen::Vector3f com;
 
     // Position
-    Vector3f rel_pos;
+    Eigen::Vector3f rel_pos;
 
     // Rotation
-    Vector3f rel_rot;
+    Eigen::Vector3f rel_rot;
 
     // MOI
-    Vector3f abs_moi;
+    Eigen::Vector3f abs_moi;
 
     Component();
 
-    Component(string _name,
-             float _mass,
-             Vector3f _com,
-             Vector3f _rel_pos,
-             Vector3f _moi,
-             Vector3f _rel_rot);
+    Component(std::string _name,
+            float _mass,
+            Eigen::Vector3f _com,
+            Eigen::Vector3f _rel_pos,
+            Eigen::Vector3f _moi,
+            Eigen::Vector3f _rel_rot);
     
     void UpdateComponent();     
         

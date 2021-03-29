@@ -26,12 +26,8 @@
 #include "types.h"
 #include "environment.h"
 #include "rocket.h"
-
 #include "../include/matplotlibcpp.h"
 #include "../include/Eigen/Dense"
-
-using namespace Eigen;
-using namespace std;
 
 namespace plt = matplotlibcpp;
 
@@ -45,8 +41,8 @@ private:
     float avg_thrust;
     float thrust;
     float burn_time;
-    vector<float> thrust_curve_x;
-    vector<float> thrust_curve_y;
+    std::vector<float> thrust_curve_x;
+    std::vector<float> thrust_curve_y;
 
     float fuel_reserve;
 
