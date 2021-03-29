@@ -22,18 +22,18 @@
 #include "engine.h"
 
 Engine::Engine(std::string _name,
-                float _mass,
-                Eigen::Vector3f _com,
-                Eigen::Vector3f _rel_pos,
-                Eigen::Vector3f _moi,
-                Eigen::Vector3f _rel_rot,
-                float _isp,
-                float _avg_thrust,
-                float _burn_time,
-                ThrustCurve _thrust_curve,
-                Eigen::Vector3f _cot,
-                Eigen::Vector3f _gimbal,
-                std::vector<float> _gimbal_limits) 
+               float _mass,
+               Eigen::Vector3f _com,
+               Eigen::Vector3f _rel_pos,
+               Eigen::Vector3f _moi,
+               Eigen::Vector3f _rel_rot,
+               float _isp,
+               float _avg_thrust,
+               float _burn_time,
+               ThrustCurve _thrust_curve,
+               Eigen::Vector3f _cot,
+               Eigen::Vector3f _gimbal,
+               std::vector<float> _gimbal_limits)
 {
     Component(_name, _mass, _com, _rel_pos, _moi, _rel_rot);
 
@@ -54,7 +54,6 @@ Engine::Engine(std::string _name,
 
 Engine::Engine()
 {
-
 }
 
 void Engine::UpdateEngine(float t)
@@ -74,11 +73,11 @@ float Engine::CalculateThrustScalar(float t)
         std::vector<float> t_vec = thrust_curve.thrust_curve_x;
         std::vector<float> y_vec = thrust_curve.thrust_curve_y;
 
-        for(int i = 1; i <= t_vec.size(); i++)
+        for (int i = 1; i <= t_vec.size(); i++)
         {
-            if(t_vec[i] >= t)
+            if (t_vec[i] >= t)
             {
-                thrust = Interpolate(t_vec[i-1], t_vec[i], y_vec[i-1], y_vec[i], t);
+                thrust = Interpolate(t_vec[i - 1], t_vec[i], y_vec[i - 1], y_vec[i], t);
             }
         }
     }
@@ -94,9 +93,9 @@ Eigen::Vector3f Engine::CalculateThrustVector()
 {
     Eigen::Vector3f total_rot = gimbal + rel_rot;
 
-    Eigen::Vector3f vec(thrust_scalar * sinf(total_rot[1]) * cos(total_rot[2]),
-                 thrust_scalar * sin(total_rot[1]) * sin(total_rot[2]),
-                 thrust_scalar * cos(total_rot[1]));
+    Eigen::Vector3f vec(thrust_scalar * sinf(total_rot[1]) * cosf(total_rot[2]),
+                        thrust_scalar * sinf(total_rot[1]) * sinf(total_rot[2]),
+                        thrust_scalar * cosf(total_rot[1]));
 
     return vec;
 }
@@ -117,5 +116,4 @@ void Engine::GimbalEngine(Eigen::Vector3f spherical_coords, float t)
 
 Engine::~Engine()
 {
-    
 }

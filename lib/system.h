@@ -37,6 +37,8 @@ private:
     Params p;
     EnvironmentVars vars;
 
+    //Rocket rocket;
+
     float isp;
     float avg_thrust;
     float thrust;
@@ -50,7 +52,7 @@ private:
     float mass_flow_rate;
 
     float propellant_mass;
-    
+
     float dry_mass;
 
     float cd;

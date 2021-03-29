@@ -2,26 +2,66 @@
 <Rocket>
     <Engine>
         <parameter name="type" value="solid"/>
+        <parameter name="mass" value="10.0" units="kg"/>
+        <parameter name="com_x" value="0" units="m"/>
+        <parameter name="com_y" value="1.5" units="m"/>
+        <parameter name="com_z" value="0" units="m"/>
+        <parameter name="rel_pos_x" value="0" units="m"/>
+        <parameter name="rel_pos_y" value="0" units="m"/>
+        <parameter name="rel_pos_z" value="0" units="m"/>
+        <parameter name="moi_x" value="200.0" units="kgm^2"/>
+        <parameter name="moi_y" value="200.0" units="kgm^2"/>
+        <parameter name="moi_z" value="200.0" units="kgm^2"/>
+        <parameter name="rel_rot_x" value="0" units="deg"/>
+        <parameter name="rel_rot_y" value="0" units="deg"/>
+        <parameter name="rel_rot_z" value="0" units="deg"/>        
         <parameter name="isp" value="224.40" units="s"/>
-        <parameter name="thrust" value="8034.5" units="N"/>
+        <parameter name="avg_thrust" value="8034.5" units="N"/>
+        <parameter name="burn_time" value="5.1" units="s"/>
+        <parameter name="thurst_curve" value="O8000_curve.csv"/>
+        <parameter name="cot_x" value="0" units="m"/>
+        <parameter name="cot_y" value="0.1" units="m"/>
+        <parameter name="cot_z" value="0" units="m"/>
+        <parameter name="gimbal_x" value="0" units="deg"/>
+        <parameter name="gimbal_y" value="0" units="deg"/>
+        <parameter name="gimbal_z" value="0" units="deg"/>
+        <parameter name="gimbal_lim_min" value="-5.0" units="deg"/>
+        <parameter name="gimbal_lim_max" value="5.0" units="deg"/>
+        <parameter name="delay" value="0.0" units="s"/>
+        <parameter name="diameter" value="0.1" units="m"/>
+        <parameter name="length" value="2.0" units="m"/>
+        <parameter name="prop_mass" value="30.0" units="kg"/>
     </Engine>
-
     <Fuel>
         <parameter name="ofratio" value="15"/>
         <parameter name="fuel_reserve" value="5" units="%"/>
     </Fuel>
-    
     <Mass>
         <parameter name="dry_mass" value="40" units="kg"/>
     </Mass>
-
+    <COM>
+        <parameter name="com_x" value="0.0" units="m"/>
+        <parameter name="com_y" value="1.2" units="m"/>
+        <parameter name="com_z" value="0.0" units="m"/>
+    </COM>
+    <COP>
+        <parameter name="cop_x" value="0.0" units="m"/>
+        <parameter name="cop_y" value="1.0" units="m"/>
+        <parameter name="cop_z" value="0.0" units="m"/>
+    </COP>
+    <MOI>
+        <parameter name="moi_x" value="400.0" units="kgm^2"/>
+        <parameter name="moi_y" value="400.0" units="kgm^2"/>
+        <parameter name="moi_z" value="400.0" units="kgm^2"/>
+    </MOI>
     <Aerodynamics>
         <parameter name="cd" value="0.0556"/>
         <parameter name="cs_area" value="0.0255364" units="m2"/>
     </Aerodynamics>
-
     <Environment>
         <parameter name="elevation" value="0" units="m"/>
+        <parameter name="latitude" value="0"/>
+        <parameter name="longitude" value="0"/>
         <parameter name="sim_step" value="0.01" units="s"/>
         <parameter name="standard_gravity" value="9.80665" units="m/s2"/>
         <parameter name="air_molar_mass" value="0.02896968" units="kg/mol"/>
@@ -29,7 +69,6 @@
         <parameter name="air_gamma" value="1.4"/>
         <parameter name="atmo_pressure" value="101325" units="pa"/>
     </Environment>
-
     <Simulation>
         <parameter name="log_file" value="Flight.log"/>
         <parameter name="csv_file" value="Flight.csv"/>

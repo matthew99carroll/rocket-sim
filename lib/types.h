@@ -21,8 +21,8 @@
 
 #pragma once
 
-#include<string>
-#include<vector>
+#include <string>
+#include <vector>
 #include "../include/Eigen/Dense"
 
 // Constant parameters
@@ -63,7 +63,7 @@ struct EngineParameters
 struct FuelParameters
 {
     float ofMixtureRatio; // Oxidizer/Fuel Mixture Ratio
-    float fuelReserve; 
+    float fuelReserve;
 };
 
 struct MassParameters
@@ -93,7 +93,6 @@ struct SimulationParameters
     std::string logFilename;
     std::string csvFilename;
 };
-
 
 // Stores environment variables
 struct EnvironmentVars
@@ -145,7 +144,7 @@ struct SimOutput
 */
 inline float Interpolate(float x0, float x1, float y0, float y1, float xp)
 {
-    return y0 + ((y1-y0)/(x1-x0)) * (xp - x0);
+    return y0 + ((y1 - y0) / (x1 - x0)) * (xp - x0);
 }
 
 /*
@@ -161,7 +160,7 @@ inline float CalcMaximum(std::vector<float> vec)
     float max = vec[0];
     for (int i = 1; i < vec.size(); i++)
     {
-        if(vec[i] > max)
+        if (vec[i] > max)
         {
             max = vec[i];
         }
@@ -175,7 +174,7 @@ inline float CalcMinimum(std::vector<float> vec)
     float min = vec[0];
     for (int i = 1; i < vec.size(); i++)
     {
-        if(vec[i] < min)
+        if (vec[i] < min)
         {
             min = vec[i];
         }

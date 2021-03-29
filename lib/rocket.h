@@ -26,20 +26,6 @@
 class Rocket
 {
 private:
-    // Number of engines
-    std::vector<Engine> engines;
-
-    // Center of masses
-    Eigen::Vector3f dry_com;
-    Eigen::Vector3f com;
-
-
-    // Center of pressure
-    Eigen::Vector3f cop;
-
-    // Masses
-    float mass;
-    float dry_mass;
 
     // Moment of inertias
     Eigen::Vector3f dry_moi;
@@ -54,10 +40,6 @@ private:
     Eigen::Vector3f rot;
     Eigen::Vector3f ang_vel;
     Eigen::Vector3f ang_acc;
-
-    // Aerodynamics
-    float cs_area;
-    float cd;
 
     // Forces
     Eigen::Vector3f weight;
@@ -85,6 +67,24 @@ private:
     Eigen::Vector3f CalculateTotalTorque();
 
 public:
+    // Number of engines
+    std::vector<Engine> engines;
+
+    // Center of masses
+    Eigen::Vector3f dry_com;
+    Eigen::Vector3f com;
+
+    // Center of pressure
+    Eigen::Vector3f cop;
+
+    // Masses
+    float mass;
+    float dry_mass;
+
+    // Aerodynamics
+    float cs_area;
+    float cd;
+
     Rocket(std::vector<Engine> _engines,
            Eigen::Vector3f _com,
            Eigen::Vector3f _cop,
@@ -96,6 +96,6 @@ public:
            Eigen::Vector3f _rot);
 
     Rocket();
-    
+
     ~Rocket();
 };

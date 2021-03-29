@@ -45,15 +45,15 @@ Rocket::Rocket(std::vector<Engine> _engines,
     dry_mass = _dry_mass;
     mass = CalculateMass();
     pos = _pos;
-    vel = { };
-    acc = { };
+    vel = {};
+    acc = {};
 
     // Rotations
     dry_moi = _moi;
     moi = CalculateMOI();
     rot = _rot;
-    ang_vel = { };
-    ang_acc = { };
+    ang_vel = {};
+    ang_acc = {};
 
     // Aerodynamics
     cs_area = _cs_area;
@@ -69,12 +69,14 @@ Rocket::Rocket(std::vector<Engine> _engines,
     total_torque = CalculateTotalTorque();
 }
 
+Rocket::Rocket() {}
+
 Eigen::Vector3f Rocket::CalculateCOM()
 {
     float engine_masses = 0;
     Eigen::Vector3f engine_weighted_position = {};
 
-    for(int i=0; i < engines.size(); i++)
+    for (int i = 0; i < engines.size(); i++)
     {
         engine_masses += engines[i].mass;
         engine_weighted_position = engines[i].mass * engines[i].rel_pos + engines[i].com;
@@ -89,7 +91,7 @@ float Rocket::CalculateMass()
 {
     float total_mass = dry_mass;
 
-    for(int i = 0; i < engines.size(); i++)
+    for (int i = 0; i < engines.size(); i++)
     {
         total_mass += engines[i].mass;
     }
@@ -99,7 +101,7 @@ float Rocket::CalculateMass()
 
 Eigen::Vector3f Rocket::CalculatePosition(float dt)
 {
-    Eigen::Vector3f new_pos = pos + dt * vel + pow(dt,2) * acc / 2;
+    Eigen::Vector3f new_pos = pos + dt * vel + pow(dt, 2) * acc / 2;
 
     return new_pos;
 }
@@ -121,7 +123,7 @@ Eigen::Vector3f Rocket::CalculateAcceleration()
 Eigen::Vector3f Rocket::CalculateMOI()
 {
     moi = dry_moi;
-    for(int i = 0; i < engines.size(); i++)
+    for (int i = 0; i < engines.size(); i++)
     {
         moi += engines[i].abs_moi;
     }
@@ -131,7 +133,7 @@ Eigen::Vector3f Rocket::CalculateMOI()
 
 Eigen::Vector3f Rocket::CalculateAngularPosition(float dt)
 {
-    Eigen::Vector3f new_rot = rot + dt * ang_vel + pow(dt,2) * ang_acc / 2;
+    Eigen::Vector3f new_rot = rot + dt * ang_vel + pow(dt, 2) * ang_acc / 2;
 
     return new_rot;
 }
@@ -156,7 +158,7 @@ Eigen::Vector3f Rocket::CalculateAngularAcceleration()
 
 Eigen::Vector3f Rocket::CalculateWeight(float g)
 {
-    Eigen::Vector3f weight(0,0, mass * -g);
+    Eigen::Vector3f weight(0, 0, mass * -g);
 
     return weight;
 }
@@ -165,7 +167,7 @@ Eigen::Vector3f Rocket::CalculateTotalThrust()
 {
     Eigen::Vector3f total_rel_vec = {};
 
-    for(int i = 0; i < engines.size(); i++)
+    for (int i = 0; i < engines.size(); i++)
     {
         total_rel_vec = total_rel_vec + engines[i].rel_thrust_vec;
     }
@@ -175,20 +177,20 @@ Eigen::Vector3f Rocket::CalculateTotalThrust()
     float beta = rot[1];
     float alpha = rot[2];
 
-    Eigen::MatrixXf matrix(3,3);
+    Eigen::MatrixXf matrix(3, 3);
 
-    matrix(0,0) = cos(alpha) * cos(beta);
-    matrix(0,1) = cos(alpha) * sin(beta) * sin(gamma) - sin(alpha) * cos(gamma);
-    matrix(0,2) = cos(alpha) * sin(beta) * cos(gamma) + sin(alpha) * sin(gamma);
+    matrix(0, 0) = cos(alpha) * cos(beta);
+    matrix(0, 1) = cos(alpha) * sin(beta) * sin(gamma) - sin(alpha) * cos(gamma);
+    matrix(0, 2) = cos(alpha) * sin(beta) * cos(gamma) + sin(alpha) * sin(gamma);
 
-    matrix(1,0) = sin(alpha) * cos(beta);
-    matrix(1,1) = sin(alpha) * sin(beta) * sin(gamma) + cos(alpha) * cos(gamma);
-    matrix(1,2) = sin(alpha) * sin(beta) * cos(gamma) - cos(alpha) * sin(gamma);
+    matrix(1, 0) = sin(alpha) * cos(beta);
+    matrix(1, 1) = sin(alpha) * sin(beta) * sin(gamma) + cos(alpha) * cos(gamma);
+    matrix(1, 2) = sin(alpha) * sin(beta) * cos(gamma) - cos(alpha) * sin(gamma);
 
-    matrix(2,0) = -sin(beta);
-    matrix(2,1) = cos(beta) * sin(gamma);
-    matrix(2,2) = cos(beta) * cos(gamma);
-    
+    matrix(2, 0) = -sin(beta);
+    matrix(2, 1) = cos(beta) * sin(gamma);
+    matrix(2, 2) = cos(beta) * cos(gamma);
+
     // Apply rocket rotation to thrust vector
     Eigen::Vector3f total_thrust = matrix * total_rel_vec;
 
@@ -215,7 +217,7 @@ Eigen::Vector3f Rocket::CalculateTotalTorque()
 
     Eigen::Vector3f position_vec;
 
-    for(int i = 0; i < engines.size(); i++)
+    for (int i = 0; i < engines.size(); i++)
     {
         position_vec = com - (engines[i].rel_pos + engines[i].cot);
         total_torque += position_vec.cross(engines[i].rel_thrust_vec);
@@ -226,3 +228,5 @@ Eigen::Vector3f Rocket::CalculateTotalTorque()
 
     return total_torque;
 }
+
+Rocket::~Rocket() {}

@@ -19,9 +19,9 @@
  * matthew99carroll@gmail.com
  */
 
-#include<vector>
-#include<string>
-#include<math.h>
+#include <vector>
+#include <string>
+#include <math.h>
 #include "types.h"
 #include "component.h"
 #include "../include/Eigen/Dense"

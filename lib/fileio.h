@@ -19,9 +19,9 @@
  * matthew99carroll@gmail.com
  */
 
-#include<iostream>
-#include<fstream>
-#include<string>
+#include <iostream>
+#include <fstream>
+#include <string>
 #include "types.h"
 #include "system.h"
 #include "../include/PugiXML/pugixml.hpp"
@@ -31,14 +31,15 @@ class FileIO
 private:
     std::ofstream file;
     std::string filename;
+
 public:
-    const char* file_path;
+    const char *file_path;
 
     FileIO();
-    FileIO(const char* _file_path);
+    FileIO(const char *_file_path);
 
     Params ParseFile();
-    void WriteOutput(System& s, std::string filename);
+    void WriteOutput(System &s, std::string filename);
 
     ~FileIO();
 };

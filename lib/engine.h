@@ -38,7 +38,7 @@ private:
     std::vector<float> gimbal_limits;
 
     float avg_mass_flow_rate;
-    
+
     float CalculateThrustScalar(float t);
     Eigen::Vector3f CalculateThrustVector();
     float CalculateMassFlowRate();
@@ -75,7 +75,7 @@ public:
     void UpdateEngine(float t);
 };
 
-class SolidMotor : Engine
+class SolidMotor : public Engine
 {
 private:
     // Delay
@@ -91,7 +91,6 @@ private:
     float prop_volume;
     float prop_density;
 
-
     // Specific impulse
     float isp;
 
@@ -99,20 +98,33 @@ private:
     Eigen::Vector3f CalculateMOI();
 
 public:
-
     Eigen::Vector3f moi;
 
-    SolidMotor(float _delay,
+    SolidMotor(std::string _name,
+               float _mass,
+               Eigen::Vector3f _com,
+               Eigen::Vector3f _rel_pos,
+               Eigen::Vector3f _moi,
+               Eigen::Vector3f _rel_rot,
+               float _isp,
+               float _avg_thrust,
+               float _burn_time,
+               ThrustCurve _thrust_curve,
+               Eigen::Vector3f _cot,
+               Eigen::Vector3f _gimbal,
+               std::vector<float> _gimbal_limits,
+               float _delay,
                float _diameter,
                float _length,
                float _prop_mass);
+    SolidMotor();
+    
     ~SolidMotor();
 };
 
 class LiquidEngine : Engine
 {
 private:
-
 public:
     LiquidEngine();
     ~LiquidEngine();
