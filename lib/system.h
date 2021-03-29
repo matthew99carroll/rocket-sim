@@ -19,14 +19,21 @@
  * matthew99carroll@gmail.com
  */
 
+#ifndef SYSTEM_H_
+#define SYSTEM_H_
+
 #include <iostream>
 #include "types.h"
 #include "environment.h"
 #include "rocket.h"
+
+#include "../include/matplotlibcpp.h"
 #include "../include/Eigen/Dense"
 
 using namespace Eigen;
 using namespace std;
+
+namespace plt = matplotlibcpp;
 
 class System
 {
@@ -78,6 +85,8 @@ private:
     void CalculateTWR();
 
 public:
+    SimOutput output;
+
     System();
 
     System(Params _params, float _burn_time);
@@ -88,3 +97,5 @@ public:
 
     ~System();
 };
+
+#endif

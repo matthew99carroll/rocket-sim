@@ -2,8 +2,8 @@
 <Rocket>
     <Engine>
         <parameter name="type" value="solid"/>
-        <parameter name="isp" value="318" units="s"/>
-        <parameter name="thrust" value="500" units="N"/>
+        <parameter name="isp" value="224.40" units="s"/>
+        <parameter name="thrust" value="8034.5" units="N"/>
     </Engine>
 
     <Fuel>
@@ -12,7 +12,7 @@
     </Fuel>
     
     <Mass>
-        <parameter name="dry_mass" value="10" units="kg"/>
+        <parameter name="dry_mass" value="40" units="kg"/>
     </Mass>
 
     <Aerodynamics>
@@ -21,7 +21,7 @@
     </Aerodynamics>
 
     <Environment>
-        <parameter name="elevation" value="113" units="m"/>
+        <parameter name="elevation" value="0" units="m"/>
         <parameter name="sim_step" value="0.01" units="s"/>
         <parameter name="standard_gravity" value="9.80665" units="m/s2"/>
         <parameter name="air_molar_mass" value="0.02896968" units="kg/mol"/>

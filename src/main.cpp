@@ -36,12 +36,14 @@ int main()
 
     parameters = parser.ParseFile();
 
-    burn_time = 10.0f;
+    burn_time = 5.12f;
 
     s = System(parameters, burn_time);
 
     s.RunSimulation();
+    
+    parser.WriteOutput(s, parameters.sim.csvFilename);
 
-    std::cin.get();
+    //std::cin.get();
 
 }

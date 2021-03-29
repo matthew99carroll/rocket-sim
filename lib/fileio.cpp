@@ -153,6 +153,48 @@ Params FileIO::ParseFile()
     return p;
 }
 
+void FileIO::WriteOutput(System& s, std::string filename)
+{
+    file.open(filename);
+
+    file << "Time" << ","
+             << "ASL" << ","
+             << "Vel" << ","
+             << "Vel_Mach" << ","
+             << "Acc" << ","
+             << "Mass" << ","
+             << "Mass_flow_rate" << ","
+             << "Prop_mass" << ","
+             << "Thrust" << ","
+             << "Twr" << ","
+             << "Drag" << ","
+             << "Rho" << ","
+             << "Pressure" << ","
+             << "Temp" << ","
+             << "Gravity" << "," << std::endl;
+
+    for(int i = 0; i < s.output.vec_t.size(); i++)
+    {
+        file << s.output.vec_t[i] << ","
+             << s.output.vec_asl[i] << ","
+             << s.output.vec_vel[i] << ","
+             << s.output.vec_vel_mach[i] << ","
+             << s.output.vec_acc[i] << ","
+             << s.output.vec_mass[i] << ","
+             << s.output.vec_mass_flow_rate[i] << ","
+             << s.output.vec_prop_mass[i] << ","
+             << s.output.vec_thrust[i] << ","
+             << s.output.vec_twr[i] << ","
+             << s.output.vec_drag[i] << ","
+             << s.output.vec_rho[i] << ","
+             << s.output.vec_pressure[i] << ","
+             << s.output.vec_temp[i] << ","
+             << s.output.vec_g[i] << "," << std::endl;
+    }
+
+    file.close();
+}
+
 FileIO::~FileIO()
 {
 }

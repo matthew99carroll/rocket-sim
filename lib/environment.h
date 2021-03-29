@@ -19,6 +19,9 @@
  * matthew99carroll@gmail.com
  */
 
+#ifndef ENVIRONMENT_H_
+#define ENVIRONMENT_H_
+
 #include<math.h>
 #include "types.h"
 
@@ -287,3 +290,5 @@ inline EnvironmentVars CalculateEnvironmentVariables(float alt)
 
     return vars;
 }
+
+#endif

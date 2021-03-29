@@ -123,6 +123,25 @@ struct ThrustCurve
     std::vector<float> thrust_curve_y;
 };
 
+struct SimOutput
+{
+    std::vector<float> vec_asl;
+    std::vector<float> vec_vel;
+    std::vector<float> vec_vel_mach;
+    std::vector<float> vec_acc;
+    std::vector<float> vec_mass;
+    std::vector<float> vec_mass_flow_rate;
+    std::vector<float> vec_prop_mass;
+    std::vector<float> vec_thrust;
+    std::vector<float> vec_twr;
+    std::vector<float> vec_drag;
+    std::vector<float> vec_rho;
+    std::vector<float> vec_pressure;
+    std::vector<float> vec_temp;
+    std::vector<float> vec_g;
+    std::vector<float> vec_t;
+};
+
 /*
 * Linear interpolation function
 */
@@ -137,4 +156,32 @@ inline float Interpolate(float x0, float x1, float y0, float y1, float xp)
 inline float Clamp(float x, float upper, float lower)
 {
     return fmin(upper, fmax(x, lower));
+}
+
+inline float CalcMaximum(std::vector<float> vec)
+{
+    float max = vec[0];
+    for (int i = 1; i < vec.size(); i++)
+    {
+        if(vec[i] > max)
+        {
+            max = vec[i];
+        }
+    }
+
+    return max;
+}
+
+inline float CalcMinimum(std::vector<float> vec)
+{
+    float min = vec[0];
+    for (int i = 1; i < vec.size(); i++)
+    {
+        if(vec[i] < min)
+        {
+            min = vec[i];
+        }
+    }
+
+    return min;
 }
