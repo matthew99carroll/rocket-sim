@@ -21,6 +21,11 @@
 
 #include "system.h"
 
+System::System()
+{
+    
+}
+
 System::System(Params _params, float _burn_time)
 {
     p = _params;
@@ -79,6 +84,21 @@ void System::RunSimulation()
         CalculateTWR();
         CalculatePropellant();
         CalculateMass();
+
+        std::cout << "ASL: " << asl << std::endl;
+        std::cout << "Velocity: " << vel << std::endl;
+        std::cout << "Velocity (Mach): " << mach << std::endl;
+        std::cout << "Acceleration: " << acc << std::endl;
+        std::cout << "Mass: " << mass << std::endl;
+        std::cout << "Mass Flow Rate: " << mass_flow_rate << std::endl;
+        std::cout << "Propellant Mass: " << propellant_mass << std::endl;
+        std::cout << "Thrust: " << thrust << std::endl;
+        std::cout << "TWR: " << twr << std::endl;
+        std::cout << "Drag: " << drag << std::endl;
+        std::cout << "Atmospheric Density: " << vars.density << std::endl;
+        std::cout << "Atmospheric Pressure: " << vars.density << std::endl;
+        std::cout << "Atmospheric Temperature: " << vars.tempFunc.temp << std::endl; 
+        std::cout << "Local Gravity: " << vars.g << std::endl;
 
         t += dt;
     }
@@ -140,7 +160,14 @@ void System::CalculateDrag()
     drag = 0.5 * (vars.density * pow(vel, 2) * cd * cs_area);
 }
 
+void System::CalculateTWR()
+{
+    twr = thrust / (mass * vars.g);
+}
+
 void System::UpdateEnvironment()
 {
     vars = CalculateEnvironmentVariables(asl);
 }
+
+System::~System() {}

@@ -33,7 +33,7 @@ private:
     float isp;
 
     // Thrust
-    vector<vector<float>, vector<float>> thrust_curve;
+    ThrustCurve thrust_curve;
     float thrust_scalar;
 
     // Gimbal
@@ -68,7 +68,7 @@ public:
            float _isp,
            float _avg_thrust,
            float _burn_time,
-           vector<vector<float>, vector<float>> _thrust_curve,
+           ThrustCurve _thrust_curve,
            Vector3f _cot,
            Vector3f _gimbal,
            vector<float> _gimbal_limits);

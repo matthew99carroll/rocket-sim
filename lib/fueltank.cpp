@@ -95,6 +95,8 @@ Vector3f FuelTank::CalculateFluidCOM()
 Vector3f FuelTank::CalculateMOI()
 {
     com = dry_mass * dry_com + prop_mass * prop_com / mass;
+    
+    return com;
 }
 
 Vector3f FuelTank::CalculateCOM()

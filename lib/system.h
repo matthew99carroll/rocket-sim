@@ -19,6 +19,7 @@
  * matthew99carroll@gmail.com
  */
 
+#include <iostream>
 #include "types.h"
 #include "environment.h"
 #include "rocket.h"
@@ -62,6 +63,7 @@ private:
     float mass;
 
     float drag;
+    float twr;
     float vel;
     float mach;
     float acc;
@@ -76,6 +78,8 @@ private:
     void CalculateTWR();
 
 public:
+    System();
+
     System(Params _params, float _burn_time);
 
     void RunSimulation();

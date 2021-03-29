@@ -37,6 +37,11 @@ Component::Component(string _name,
     rel_rot = _rel_rot;
 }
 
+Component::Component()
+{
+
+}
+
 void Component::UpdateComponent()
 {
     abs_moi = CalculateAbsMoi();
@@ -50,4 +55,9 @@ Vector3f Component::CalculateAbsMoi()
     abs_moi[2] = moi[2] + (pow(rel_pos[0], 2.0) + pow(rel_pos[1], 2.0)) * mass;
 
     return abs_moi;
+}
+
+Component::~Component()
+{
+    
 }

@@ -50,13 +50,14 @@ public:
     // MOI
     Vector3f abs_moi;
 
+    Component();
+
     Component(string _name,
              float _mass,
              Vector3f _com,
              Vector3f _rel_pos,
              Vector3f _moi,
              Vector3f _rel_rot);
-    Component();
     
     void UpdateComponent();     
         

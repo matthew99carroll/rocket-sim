@@ -20,8 +20,7 @@
  */
 
 #include<iostream>
-// #include "parameters.h"
-//#include "../lib/component.h"
+#include "../lib/parameters.h"
 #include "../lib/system.h"
 #include "../lib/fileio.h"
 
@@ -33,7 +32,7 @@ System s;
 
 int main()
 {
-    parser.file_path = "../include/rocket.xml"; 
+    parser.file_path = "include/rocket.xml"; 
 
     parameters = parser.ParseFile();
 

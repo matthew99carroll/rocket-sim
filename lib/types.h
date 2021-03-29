@@ -117,6 +117,12 @@ struct Params
     SimulationParameters sim;
 };
 
+struct ThrustCurve
+{
+    std::vector<float> thrust_curve_x;
+    std::vector<float> thrust_curve_y;
+};
+
 /*
 * Linear interpolation function
 */

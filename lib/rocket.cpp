@@ -114,6 +114,8 @@ Vector3f Rocket::CalculateVelocity(float dt)
 Vector3f Rocket::CalculateAcceleration()
 {
     Vector3f new_acc = total_force / mass;
+
+    return new_acc;
 }
 
 Vector3f Rocket::CalculateMOI()
@@ -169,23 +171,23 @@ Vector3f Rocket::CalculateTotalThrust()
     }
 
     // Set initial values to initial rotation i.e. align with rocket
-    Vector3f gamma = rot;
-    Vector3f beta = rot;
-    Vector3f alpha = rot;
+    float gamma = rot[0];
+    float beta = rot[1];
+    float alpha = rot[2];
 
     MatrixXf matrix(3,3);
 
-    matrix(0,0) = alpha.cos() * beta.cos();
-    matrix(0,1) = alpha.cos() * beta.sin() * gamma.sin() - alpha.sin() * gamma.cos();
-    matrix(0,2) = alpha.cos() * beta.sin() * gamma.cos() + alpha.sin() * gamma.sin();
+    matrix(0,0) = cos(alpha) * cos(beta);
+    matrix(0,1) = cos(alpha) * sin(beta) * sin(gamma) - sin(alpha) * cos(gamma);
+    matrix(0,2) = cos(alpha) * sin(beta) * cos(gamma) + sin(alpha) * sin(gamma);
 
-    matrix(1,0) = alpha.sin() * beta.cos();
-    matrix(1,1) = alpha.sin() * beta.sin() * gamma.sin() + alpha.cos() * gamma.cos();
-    matrix(1,2) = alpha.sin() * beta.sin() * gamma.cos() - alpha.cos() * gamma.sin();
+    matrix(1,0) = sin(alpha) * cos(beta);
+    matrix(1,1) = sin(alpha) * sin(beta) * sin(gamma) + cos(alpha) * cos(gamma);
+    matrix(1,2) = sin(alpha) * sin(beta) * cos(gamma) - cos(alpha) * sin(gamma);
 
-    matrix(2,0) = -beta.sin();
-    matrix(2,1) = beta.cos() * gamma.sin();
-    matrix(2,2) = beta.cos() * gamma.cos();
+    matrix(2,0) = -sin(beta);
+    matrix(2,1) = cos(beta) * sin(gamma);
+    matrix(2,2) = cos(beta) * cos(gamma);
     
     // Apply rocket rotation to thrust vector
     Vector3f total_thrust = matrix * total_rel_vec;
@@ -195,7 +197,7 @@ Vector3f Rocket::CalculateTotalThrust()
 
 Vector3f Rocket::CalculateTotalDrag(float rho)
 {
-    Vector3f drag = 0.5 * rho * vel * vel * cd * cs_area;
+    Vector3f drag = 0.5 * rho * vel.array().square() * cd * cs_area;
 
     return drag;
 }

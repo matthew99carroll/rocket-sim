@@ -8,14 +8,9 @@
 			"args": [
 				"-std=c++17",
 				"-g",
+				"${file}",
 				"include/PugiXML/pugixml.cpp",
-				"lib/fileio.cpp",
-				"lib/component.cpp",
-				"lib/engine.cpp",
-				"lib/rocket.cpp",
-				"lib/system.cpp",
-				"src/main.cpp",
-				//"${file}",
+				"${workspaceFolder}/lib/**.cpp",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"
 			],

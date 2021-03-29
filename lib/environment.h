@@ -24,7 +24,7 @@
 
 using std::vector;
 
-float HeterosphereEquation(float alt, float a, float b, float c, float d, float e)
+inline float HeterosphereEquation(float alt, float a, float b, float c, float d, float e)
 {
     float alt_km = alt / 1000.0f;
 
@@ -35,17 +35,17 @@ float HeterosphereEquation(float alt, float a, float b, float c, float d, float 
                + e);
 }
 
-float CalculateGeopotentialAltitude(float alt)
+inline float CalculateGeopotentialAltitude(float alt)
 {
     return earth_radius * alt / (earth_radius + alt);
 }
 
-float CalculateGravity(float alt)
+inline float CalculateGravity(float alt)
 {
     return g_0 * pow((earth_radius / (earth_radius + alt)), 2);
 }
 
-TempFunction CalculateTemperature(float alt, float geo_alt)
+inline TempFunction CalculateTemperature(float alt, float geo_alt)
 {
     TempFunction tempFunc;
     
@@ -157,7 +157,7 @@ TempFunction CalculateTemperature(float alt, float geo_alt)
     }
 }
 
-float CalculatePressure(float alt, float geo_alt, float temp, int b)
+inline float CalculatePressure(float alt, float geo_alt, float temp, int b)
 {
     if(b <= 6)
     {
@@ -216,7 +216,7 @@ float CalculatePressure(float alt, float geo_alt, float temp, int b)
     }
 }
 
-float CalculateDensity(float alt, float pressure, float temp, int b)
+inline float CalculateDensity(float alt, float pressure, float temp, int b)
 {
     if(b <= 6)
     {
@@ -269,12 +269,12 @@ float CalculateDensity(float alt, float pressure, float temp, int b)
     }
 }
 
-float CalculateMach(float temp)
+inline float CalculateMach(float temp)
 {
     return sqrt((air_gamma * gas_constant * temp) / air_molar_mass);
 }
 
-EnvironmentVars CalculateEnvironmentVariables(float alt)
+inline EnvironmentVars CalculateEnvironmentVariables(float alt)
 {
     EnvironmentVars vars;
 

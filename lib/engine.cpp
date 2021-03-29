@@ -21,20 +21,22 @@
 
 #include "engine.h"
 
-Engine::Engine(string _name,
-           float _mass,
-           Vector3f _com,
-           Vector3f _rel_pos,
-           Vector3f _moi,
-           Vector3f _rel_rot,
-           float _isp,
-           float _avg_thrust,
-           float _burn_time,
-           vector<vector<float>, vector<float>> _thrust_curve,
-           Vector3f _cot,
-           Vector3f _gimbal,
-           vector<float> _gimbal_limits)
+ Engine::Engine(string _name,
+                float _mass,
+                Vector3f _com,
+                Vector3f _rel_pos,
+                Vector3f _moi,
+                Vector3f _rel_rot,
+                float _isp,
+                float _avg_thrust,
+                float _burn_time,
+                ThrustCurve _thrust_curve,
+                Vector3f _cot,
+                Vector3f _gimbal,
+                vector<float> _gimbal_limits) 
 {
+    Component(_name, _mass, _com, _rel_pos, _moi, _rel_rot);
+
     isp = _isp;
     avg_thrust = _avg_thrust;
     burn_time = _burn_time;
@@ -48,6 +50,11 @@ Engine::Engine(string _name,
 
     gimbal = _gimbal;
     gimbal_limits = _gimbal_limits;
+}
+
+Engine::Engine()
+{
+
 }
 
 void Engine::UpdateEngine(float t)
@@ -64,8 +71,8 @@ float Engine::CalculateThrustScalar(float t)
 
     if (t >= 0 && t <= burn_time)
     {
-        vector<float> t_vec = thrust_curve[0];
-        vector<float> y_vec = thrust_curve[1];
+        vector<float> t_vec = thrust_curve.thrust_curve_x;
+        vector<float> y_vec = thrust_curve.thrust_curve_y;
 
         for(int i = 1; i <= t_vec.size(); i++)
         {
@@ -85,12 +92,11 @@ float Engine::CalculateThrustScalar(float t)
 
 Vector3f Engine::CalculateThrustVector()
 {
-    Vector3f theta = gimbal + rel_rot;
-    Vector3f phi = gimbal + rel_rot;
+    Vector3f total_rot = gimbal + rel_rot;
 
-    Vector3f vec(thrust_scalar * theta.sin() * phi.cos(),
-                 thrust_scalar * theta.sin() * phi.sin(),
-                 thrust_scalar * theta.cos());
+    Vector3f vec(thrust_scalar * sinf(total_rot[1]) * cos(total_rot[2]),
+                 thrust_scalar * sin(total_rot[1]) * sin(total_rot[2]),
+                 thrust_scalar * cos(total_rot[1]));
 
     return vec;
 }
@@ -107,4 +113,9 @@ void Engine::GimbalEngine(Vector3f spherical_coords, float t)
     gimbal[2] = Clamp(spherical_coords[2], gimbal_limits[0], gimbal_limits[1]);
 
     UpdateEngine(t);
+}
+
+Engine::~Engine()
+{
+    
 }
