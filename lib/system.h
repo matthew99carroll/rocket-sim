@@ -87,7 +87,7 @@ public:
 
     System();
 
-    System(Params _params, float _burn_time);
+    System(Params _params);
 
     void RunSimulation();
 

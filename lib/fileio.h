@@ -33,12 +33,10 @@ private:
     std::string filename;
 
 public:
-    const char *file_path;
-
     FileIO();
-    FileIO(const char *_file_path);
 
-    Params ParseFile();
+    Params ParseRocketConfig(const char *file_path);
+    ThrustCurve ParseThrustCurve(const char *file_path);
     void WriteOutput(System &s, std::string filename);
 
     ~FileIO();

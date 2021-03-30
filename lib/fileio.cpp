@@ -22,16 +22,9 @@
 #include "fileio.h"
 #include <iostream>
 
-FileIO::FileIO(const char* _file_path)
-{
-    file_path = _file_path;
-}
+FileIO::FileIO() { }
 
-FileIO::FileIO()
-{
-}
-
-Params FileIO::ParseFile()
+Params FileIO::ParseRocketConfig(const char *file_path)
 {
     Params p;
 
@@ -42,6 +35,8 @@ Params FileIO::ParseFile()
         std::cout << "Error: Cannot load XML file!" << std::endl;
 
     pugi::xml_node rocket = doc.child("Rocket");
+
+
 
     for (pugi::xml_node_iterator it = rocket.begin(); it != rocket.end(); ++it)
     {
@@ -107,9 +102,9 @@ Params FileIO::ParseFile()
                 else if(child_node_name == (std::string)"gimbal_z")
                     p.engine.gimbal.z() = std::stof((std::string)cit_val.value());
                 else if(child_node_name == (std::string)"gimbal_lim_max")
-                    p.engine.gimbal_limits[0] = std::stof((std::string)cit_val.value());
+                    p.engine.gimbal_limits.push_back(std::stof((std::string)cit_val.value()));
                 else if(child_node_name == (std::string)"gimbal_z")
-                    p.engine.gimbal_limits[1] = std::stof((std::string)cit_val.value());
+                    p.engine.gimbal_limits.push_back(std::stof((std::string)cit_val.value()));
                 else if(child_node_name == (std::string)"delay")
                     p.engine.delay = std::stof((std::string)cit_val.value());
                 else if(child_node_name == (std::string)"diameter")
@@ -260,6 +255,35 @@ Params FileIO::ParseFile()
         }
     }
     return p;
+}
+
+ThrustCurve FileIO::ParseThrustCurve(const char *file_path)
+{
+    ThrustCurve curve;
+
+    pugi::xml_document doc;
+   
+    // load the XML file
+    if (!doc.load_file(file_path))
+        std::cout << "Error: Cannot load XML file!" << std::endl;
+
+    pugi::xml_node data = doc.child("data");
+    for (pugi::xml_node_iterator it = data.begin(); it != data.end(); ++it)
+    {
+       
+        std::string node_name = (std::string)it->name();
+        if(node_name == (std::string)"eng-data")
+        {                          
+            pugi::xml_attribute it_t = it->attribute("t");
+            pugi::xml_attribute it_f = it->attribute("f");
+            pugi::xml_attribute it_m = it->attribute("m");
+            pugi::xml_attribute it_cg = it->attribute("cg");
+
+            curve.thrust_curve_x.push_back(std::stof((std::string)it_t.value()));
+            curve.thrust_curve_y.push_back(std::stof((std::string)it_f.value()));
+        }
+    }
+    return curve;
 }
 
 void FileIO::WriteOutput(System& s, std::string filename)

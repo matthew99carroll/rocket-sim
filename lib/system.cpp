@@ -26,14 +26,14 @@ System::System()
     
 }
 
-System::System(Params _params, float _burn_time)
+System::System(Params _params)
 {
     p = _params;
 
     // Engine specs
     isp = p.engine.isp;
     avg_thrust = p.engine.avg_thrust;
-    burn_time = _burn_time;
+    burn_time = p.engine.burn_time;
 
     // Fuel specs
     fuel_reserve = p.fuel.fuelReserve;
