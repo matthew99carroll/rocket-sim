@@ -32,7 +32,7 @@ System::System(Params _params, float _burn_time)
 
     // Engine specs
     isp = p.engine.isp;
-    avg_thrust = p.engine.thrust;
+    avg_thrust = p.engine.avg_thrust;
     burn_time = _burn_time;
 
     // Fuel specs
@@ -45,7 +45,7 @@ System::System(Params _params, float _burn_time)
     propellant_mass = (avg_mass_flow_rate * burn_time) / (1 - fuel_reserve / 100);
 
     // Mass
-    dry_mass = p.mass.dryMass;
+    dry_mass = p.dryMass;
 
     // Aerodynamics
     cd = p.aero.cd;
@@ -204,7 +204,7 @@ void System::CalculateThrust()
     /*
     * UPDATE THIS FOR THRUST CURVES
     */
-    thrust = p.engine.thrust;
+    thrust = p.engine.avg_thrust;
 }
 
 void System::CalculateDrag()

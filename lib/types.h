@@ -56,19 +56,28 @@ struct TempFunction
 struct EngineParameters
 {
     std::string type;
+    float mass;
+    Eigen::Vector3f com;
+    Eigen::Vector3f rel_pos;
+    Eigen::Vector3f moi;
+    Eigen::Vector3f rel_rot;
     float isp;
-    float thrust;
+    float avg_thrust;
+    float burn_time;
+    std::string thrust_curve;
+    Eigen::Vector3f cot;
+    Eigen::Vector3f gimbal;
+    std::vector<float> gimbal_limits;
+    float delay;
+    float diameter;
+    float length;
+    float prop_mass;
 };
 
 struct FuelParameters
 {
     float ofMixtureRatio; // Oxidizer/Fuel Mixture Ratio
     float fuelReserve;
-};
-
-struct MassParameters
-{
-    float dryMass;
 };
 
 struct AerodynamicsParameters
@@ -80,6 +89,8 @@ struct AerodynamicsParameters
 struct EnvironmentParameters
 {
     float elevation;
+    float latitude;
+    float longitude;
     float dt;
     float g_0;
     float air_molar_mass;
@@ -108,7 +119,10 @@ struct Params
 {
     EngineParameters engine;
     FuelParameters fuel;
-    MassParameters mass;
+    float dryMass;
+    Eigen::Vector3f com;
+    Eigen::Vector3f cop;
+    Eigen::Vector3f moi;
     AerodynamicsParameters aero;
     EnvironmentParameters env;
     SimulationParameters sim;

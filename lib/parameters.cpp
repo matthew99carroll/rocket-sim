@@ -22,15 +22,13 @@
 #include "parameters.h"
 
 Parameters::Parameters(EngineParameters _engine,
-               FuelParameters _fuel,
-               MassParameters _mass,
-               AerodynamicsParameters _aero,
-               EnvironmentParameters _env,
-               SimulationParameters _sim)
+                       FuelParameters _fuel,
+                       AerodynamicsParameters _aero,
+                       EnvironmentParameters _env,
+                       SimulationParameters _sim)
 {
     params.engine = _engine;
     params.fuel = _fuel;
-    params.mass = _mass;
     params.aero = _aero;
     params.env = _env;
     params.sim = _sim;

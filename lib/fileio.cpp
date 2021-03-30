@@ -60,10 +60,64 @@ Params FileIO::ParseFile()
                 
                 if(child_node_name == (std::string)"type")
                     p.engine.type = cit_val.value();
+                else if(child_node_name == (std::string)"mass")
+                    p.engine.mass = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"com_x")
+                    p.engine.com.x() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"com_y")
+                    p.engine.com.y() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"com_z")
+                    p.engine.com.z() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"rel_pos_x")
+                    p.engine.rel_pos.x() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"rel_pos_y")
+                    p.engine.rel_pos.y() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"rel_pos_z")
+                    p.engine.rel_pos.z() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"moi_x")
+                    p.engine.moi.x() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"moi_y")
+                    p.engine.moi.y() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"moi_z")
+                    p.engine.moi.z() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"rel_rot_x")
+                    p.engine.rel_rot.x() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"rel_rot_y")
+                    p.engine.rel_rot.y() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"rel_rot_z")
+                    p.engine.rel_rot.z() = std::stof((std::string)cit_val.value());
                 else if(child_node_name == (std::string)"isp")
                     p.engine.isp = std::stof((std::string)cit_val.value());
-                else if(child_node_name == (std::string)"thrust")
-                    p.engine.thrust = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"avg_thrust")
+                    p.engine.avg_thrust = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"burn_time")
+                    p.engine.burn_time = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"thrust_curve")
+                    p.engine.type = cit_val.value();
+                else if(child_node_name == (std::string)"cot_x")
+                    p.engine.cot.x() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"cot_y")
+                    p.engine.cot.y() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"cot_z")
+                    p.engine.cot.z() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"gimbal_x")
+                    p.engine.gimbal.x() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"gimbal_y")
+                    p.engine.gimbal.y() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"gimbal_z")
+                    p.engine.gimbal.z() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"gimbal_lim_max")
+                    p.engine.gimbal_limits[0] = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"gimbal_z")
+                    p.engine.gimbal_limits[1] = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"delay")
+                    p.engine.delay = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"diameter")
+                    p.engine.diameter = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"length")
+                    p.engine.length = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"prop_mass")
+                    p.engine.prop_mass = std::stof((std::string)cit_val.value());
             }
         }
         else if(node_name == (std::string)"Fuel")
@@ -91,7 +145,58 @@ Params FileIO::ParseFile()
                 std::string child_node_name = (std::string)cit_name.value();
 
                 if(child_node_name == (std::string)"dry_mass")
-                    p.mass.dryMass = std::stof((std::string)cit_val.value());
+                    p.dryMass = std::stof((std::string)cit_val.value());
+            }
+        }
+        else if(node_name == (std::string)"COM")
+        {
+            for (pugi::xml_node_iterator cit = it->begin(); cit != it->end(); ++cit)
+            {
+                pugi::xml_attribute cit_val = cit->attribute("value");
+                pugi::xml_attribute cit_name = cit->attribute("name");
+
+                std::string child_node_name = (std::string)cit_name.value();
+
+                if(child_node_name == (std::string)"com_x")
+                    p.com.x() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"com_y")
+                    p.com.y() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"com_z")
+                    p.com.z() = std::stof((std::string)cit_val.value());
+            }
+        }
+        else if(node_name == (std::string)"COP")
+        {
+            for (pugi::xml_node_iterator cit = it->begin(); cit != it->end(); ++cit)
+            {
+                pugi::xml_attribute cit_val = cit->attribute("value");
+                pugi::xml_attribute cit_name = cit->attribute("name");
+
+                std::string child_node_name = (std::string)cit_name.value();
+
+                if(child_node_name == (std::string)"cop_x")
+                    p.cop.x() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"cop_y")
+                    p.cop.y() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"cop_z")
+                    p.cop.z() = std::stof((std::string)cit_val.value());
+            }
+        }
+        else if(node_name == (std::string)"MOI")
+        {
+            for (pugi::xml_node_iterator cit = it->begin(); cit != it->end(); ++cit)
+            {
+                pugi::xml_attribute cit_val = cit->attribute("value");
+                pugi::xml_attribute cit_name = cit->attribute("name");
+
+                std::string child_node_name = (std::string)cit_name.value();
+
+                if(child_node_name == (std::string)"moi_x")
+                    p.moi.x() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"moi_y")
+                    p.moi.y() = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"moi_z")
+                    p.moi.z() = std::stof((std::string)cit_val.value());
             }
         }
         else if(node_name == (std::string)"Aerodynamics")
@@ -120,6 +225,10 @@ Params FileIO::ParseFile()
                 
                 if(child_node_name == (std::string)"elevation")
                     p.env.elevation = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"latitude")
+                    p.env.latitude = std::stof((std::string)cit_val.value());
+                else if(child_node_name == (std::string)"longitude")
+                    p.env.longitude = std::stof((std::string)cit_val.value());
                 else if(child_node_name == (std::string)"sim_step")
                     p.env.dt = std::stof((std::string)cit_val.value());
                 else if(child_node_name == (std::string)"standard_gravity")

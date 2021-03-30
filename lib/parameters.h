@@ -30,7 +30,6 @@ public:
 
     Parameters(EngineParameters _engine,
                FuelParameters _fuel,
-               MassParameters _mass,
                AerodynamicsParameters _aero,
                EnvironmentParameters _env,
                SimulationParameters _sim);
